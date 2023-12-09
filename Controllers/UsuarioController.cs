@@ -35,22 +35,19 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             return View("Error!");
         }
         [HttpGet]
-        [Route("CrearUsuario")]
-        public IActionResult Crearusuario() 
+        public IActionResult crearusuario() 
         {
             return View(new Usuario());
         }
 
         [HttpPost]
-        [Route("CrearUsuario")]
-        public IActionResult Crearusuario(Usuario u)
+        public IActionResult crearusuarioFromForm(Usuario u)
         {
             _manejo.CreateUser(u);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        [Route("EditarUsuario")]
         public IActionResult EditarUsuario(int id)
         {
             var usuario = _manejo.GetByIdUser(id);
@@ -58,7 +55,6 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         }
 
         [HttpPost]
-        [Route("EditarUsuario")]
         public IActionResult EditarUsuario(Usuario usuario)
         {   
             var usuarioMod = _manejo.GetByIdUser(usuario.Id);
@@ -70,7 +66,6 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         }
 
         [HttpPost]
-        [Route("EliminarUsuario")]
         public IActionResult EliminarUsuario(int id)
         {
             _manejo.RemoveUser(id);
