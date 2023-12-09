@@ -12,14 +12,14 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
         private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
         public void CreateBoard(Tablero tablero)
         {
-            var query = $"INSERT INTO Tablero (id,id_usuario_propietario, nombre,descripcion) VALUES (@id,@idusu,@nombre,@descripcion)";
+            var query = $"INSERT INTO Tablero (id_usuario_propietario, nombre,descripcion) VALUES (@idusu,@nombre,@descripcion)";
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
 
                 connection.Open();
                 var command = new SQLiteCommand(query, connection);
 
-                command.Parameters.Add(new SQLiteParameter("@id", tablero.Id));
+                
                 command.Parameters.Add(new SQLiteParameter("@idusu", tablero.IdUsuarioPropietario));
                 command.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
                 command.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
@@ -31,12 +31,12 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
         }
         public void UpdateBoard (int id,Tablero tablero)
         {
-            var query = $"UPDATE Tablero SET id_usuario_propietario = '@idusu',nombre = '@nombre',descripcion = '@descripcion' WHERE id = '{id}';";
+            var query = $"UPDATE Tablero SET nombre = @nombre,descripcion = @descripcion WHERE id = {id};";
 
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 var command = new SQLiteCommand(query, connection);
-                command.Parameters.Add(new SQLiteParameter("@idusu", tablero.IdUsuarioPropietario));
+
                 command.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
                 command.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
 
@@ -128,7 +128,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"DELETE * FROM Tablero WHERE id = @idtablero";
+            command.CommandText = $"DELETE FROM Tablero WHERE id = @idtablero";
             command.Parameters.Add(new SQLiteParameter("@idtablero", id));
             connection.Open();
             command.ExecuteNonQuery();

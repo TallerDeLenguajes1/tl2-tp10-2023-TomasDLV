@@ -12,14 +12,13 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
         private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
         public void CreateTask(Tarea tarea)
         {
-            var query = $"INSERT INTO Tarea (id,id_tablero, nombre,estado,descripcion,color,id_usuario_asignado) VALUES (@id,@idtab,@nombre,@estado,@descripcion,@color,@id_usuario_asignado)";
+            var query = $"INSERT INTO Tarea (id_tablero, nombre,estado,descripcion,color,id_usuario_asignado) VALUES (@idtab,@nombre,@estado,@descripcion,@color,@id_usuario_asignado)";
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
 
 
                 var command = new SQLiteCommand(query, connection);
 
-                command.Parameters.Add(new SQLiteParameter("@id", tarea.Id));
                 command.Parameters.Add(new SQLiteParameter("@idtab", tarea.IdTablero));
                 command.Parameters.Add(new SQLiteParameter("@nombre", tarea.Nombre));
                 command.Parameters.Add(new SQLiteParameter("@estado", tarea.Estado));
@@ -35,7 +34,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
         }
         public void UpdateTask(int id, Tarea tarea)
         {
-            var query = $"UPDATE Tarea SET (id_tablero, nombre,estado,descripcion,color,id_usuario_asignado) VALUES (@idtab,@nombre,@estado,@descripcion,@color,@id_usuario_asignado) WHERE id = @id";
+            var query = "UPDATE Tarea SET id_tablero = @idtab, nombre = @nombre, estado = @estado, descripcion = @descripcion, color = @color, id_usuario_asignado = @id_usuario_asignado WHERE id = @id";
 
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
@@ -54,13 +53,14 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 connection.Close();
             }
         }
+
         public Tarea GetTaskById(int idTarea)
         {
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             var tarea = new Tarea();
             SQLiteCommand command = connection.CreateCommand();
             command.CommandText = "SELECT * FROM Tarea WHERE id = @idtarea";
-            command.Parameters.Add(new SQLiteParameter("@idtablero", idTarea));
+            command.Parameters.Add(new SQLiteParameter("@idtarea", idTarea));
             connection.Open();
             using (SQLiteDataReader reader = command.ExecuteReader())
             {
@@ -87,7 +87,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 SQLiteCommand command = new SQLiteCommand(queryString, connection);
-                
+
                 connection.Open();
 
                 using (SQLiteDataReader reader = command.ExecuteReader())
@@ -96,13 +96,14 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                     {
                         var tarea = new Tarea();
 
-                        tarea.Id_usuario_asignado = Convert.ToInt32(reader["id"]);
+                        tarea.Id = Convert.ToInt32(reader["id"]);
                         tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
                         tarea.Nombre = reader["nombre"].ToString();
                         tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]);
                         tarea.Descripcion = reader["descripcion"].ToString();
-                        tarea.Descripcion = reader["color"].ToString();
-                        tarea.IdTablero = Convert.ToInt32(reader["id_usuario_asignado"]);
+                        tarea.Color = reader["color"].ToString();
+                        tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
+
                         tareas.Add(tarea);
 
                     }
@@ -118,7 +119,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 SQLiteCommand command = new SQLiteCommand(queryString, connection);
-                command.Parameters.Add(new SQLiteParameter("@id_usuario_asignado", idUser));
+                command.Parameters.Add(new SQLiteParameter("@idUser", idUser));
                 connection.Open();
 
                 using (SQLiteDataReader reader = command.ExecuteReader())
@@ -176,7 +177,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
 
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"DELETE * FROM Tarea WHERE id = @idtarea";
+            command.CommandText = $"DELETE FROM Tarea WHERE id = @idtarea";
             command.Parameters.Add(new SQLiteParameter("@idtarea", id));
             connection.Open();
             command.ExecuteNonQuery();

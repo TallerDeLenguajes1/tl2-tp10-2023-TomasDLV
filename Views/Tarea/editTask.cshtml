@@ -1,0 +1,36 @@
+@using tl2_tp09_2023_TomasDLV.Models
+@model Tarea
+
+<form asp-controller="Tarea" asp-action="editTask" method="post">
+    <input type="hidden" asp-for="@Model.Id" />
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.IdTablero"> </label>
+        <input asp-for="@Model.IdTablero" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Nombre"> </label>
+        <input asp-for="@Model.Nombre" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Estado"> </label>
+        <input asp-for="@Model.Estado" class="form-control" />
+    </div>
+   
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Descripcion"> </label>
+        <input asp-for="@Model.Descripcion" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Color"> </label>
+        <input asp-for="@Model.Color" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Id_usuario_asignado"> </label>
+        <input asp-for="@Model.Id_usuario_asignado" class="form-control" />
+    </div>
+
+   
+
+    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+</form>

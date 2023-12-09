@@ -11,7 +11,7 @@ using tl2_tp09_2023_TomasDLV.Repositorios;
 
 namespace tl2_tp10_2023_TomasDLV.Controllers
 {
-    [Route("[controller]")]
+    
     public class UsuarioController : Controller
     {
         private readonly ILogger<UsuarioController> _logger;
@@ -22,7 +22,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             _logger = logger;
             _manejo = new UsuarioRepository();
         }
-        [Route("Index")]
+       
         public IActionResult Index()
         {
             var usuarios = _manejo.GetAllUser();
@@ -35,38 +35,37 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             return View("Error!");
         }
         [HttpGet]
-        public IActionResult crearusuario() 
+        
+        public IActionResult createUser() 
         {
             return View(new Usuario());
         }
 
         [HttpPost]
-        public IActionResult crearusuarioFromForm(Usuario u)
+        public IActionResult createUser(Usuario u)
         {
             _manejo.CreateUser(u);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        public IActionResult EditarUsuario(int id)
+        public IActionResult editUser(int id)
         {
             var usuario = _manejo.GetByIdUser(id);
             return View(usuario);
         }
 
         [HttpPost]
-        public IActionResult EditarUsuario(Usuario usuario)
+        public IActionResult editUser(Usuario usuario)
         {   
-            var usuarioMod = _manejo.GetByIdUser(usuario.Id);
-            usuarioMod.Nombre_de_usuario = usuario.Nombre_de_usuario;
-
+        
             _manejo.UpdateUser(usuario.Id,usuario);
 
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public IActionResult EliminarUsuario(int id)
+        public IActionResult removeUser(int id)
         {
             _manejo.RemoveUser(id);
             return RedirectToAction("Index");

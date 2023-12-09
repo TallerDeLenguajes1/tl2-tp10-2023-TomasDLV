@@ -1,0 +1,50 @@
+@using tl2_tp09_2023_TomasDLV.Models;
+
+@model List<Tarea>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th style="text-align: center;">Id</th>
+            <th style="text-align: center;">ID Tablero</th>
+            <th style="text-align: center;">NOMBRE</th>
+            <th style="text-align: center;">ESTADO</th>
+            <th style="text-align: center;">DESCRIPCION</th>
+            <th style="text-align: center;">COLOR</th>
+            <th style="text-align: center;">ID USUARIO ASIGNADO</th>
+            <th style="text-align: center;">ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Tarea t in Model)
+        {
+            <tr>
+                <td style="text-align: center;">@t.Id</td>
+                <td style="text-align: center;">@t.IdTablero</td>
+                <td style="text-align: center;">@t.Nombre</td>
+                <td style="text-align: center;">@t.Estado</td>
+                <td style="text-align: center;">@t.Descripcion</td>
+                <td style="text-align: center;">@t.Color</td>
+                <td style="text-align: center;">@t.Id_usuario_asignado</td>
+                <td style="text-align: center;">
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <a asp-controller="Tarea" asp-action="editTask" asp-route-id="@t.Id" class="btn btn-primary">Editar</a>
+                        <form asp-controller="Tarea" asp-action="removeTask" method="post" onsubmit="return confirm('¿Estás seguro que quieres eliminar el usuario?')">
+                            <input type="hidden" name="id" value="@t.Id" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

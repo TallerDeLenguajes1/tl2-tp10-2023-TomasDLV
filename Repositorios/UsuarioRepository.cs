@@ -11,9 +11,9 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
     {
         private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
 
-        
 
-        
+
+
 
         public void CreateUser(Usuario usuario)
         {
@@ -21,7 +21,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
 
-                
+
                 var command = new SQLiteCommand(query, connection);
 
                 //command.Parameters.Add(new SQLiteParameter("@uid", usuario.Id));
@@ -29,23 +29,23 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 connection.Open();
                 command.ExecuteNonQuery();
 
-                connection.Close();   
+                connection.Close();
             }
         }
-        
-        public void UpdateUser (int id,Usuario usuario)
+
+        public void UpdateUser(int id, Usuario usuario)
         {
-            var query = $"UPDATE Usuario SET nombre_de_usuario = '@nombre' WHERE id = '{id}';";
+            var query = "UPDATE Usuario SET nombre_de_usuario = @nombre WHERE id = @id";
 
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 var command = new SQLiteCommand(query, connection);
                 command.Parameters.Add(new SQLiteParameter("@nombre", usuario.Nombre_de_usuario));
+                command.Parameters.Add(new SQLiteParameter("@id", id));
 
                 connection.Open();
                 command.ExecuteNonQuery();
-
-                connection.Close();   
+                connection.Close();
             }
         }
         public List<Usuario> GetAllUser()
@@ -56,8 +56,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             {
                 SQLiteCommand command = new SQLiteCommand(queryString, connection);
                 connection.Open();
-            
-                using(SQLiteDataReader reader = command.ExecuteReader())
+
+                using (SQLiteDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -79,7 +79,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             command.CommandText = "SELECT * FROM Usuario WHERE id = @idusuario";
             command.Parameters.Add(new SQLiteParameter("@idusuario", idUsuario));
             connection.Open();
-            using(SQLiteDataReader reader = command.ExecuteReader())
+            using (SQLiteDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
@@ -94,10 +94,10 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
 
         public void RemoveUser(int id)
         {
-            
+
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);
             SQLiteCommand command = connection.CreateCommand();
-            command.CommandText = $"DELETE * FROM Usuario WHERE id = @idusuario";
+            command.CommandText = $"DELETE FROM Usuario WHERE id = @idusuario";
             command.Parameters.Add(new SQLiteParameter("@idusuario", id));
             connection.Open();
             command.ExecuteNonQuery();

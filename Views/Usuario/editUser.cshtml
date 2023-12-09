@@ -1,0 +1,15 @@
+@using tl2_tp09_2023_TomasDLV.Models
+@model Usuario
+
+<form asp-controller="Usuario" asp-action="editUser" method="post">
+    <input type="hidden" asp-for="@Model.Id" />
+
+    <div class="mb-3">
+        <label class="form-label" asp-for="@Model.Nombre_de_usuario">Nombre de Usuario: </label>
+        <input asp-for="@Model.Nombre_de_usuario" class="form-control" />
+    </div>
+
+   
+
+    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+</form>
