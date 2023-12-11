@@ -1,5 +1,5 @@
-@using tl2_tp09_2023_TomasDLV.Models;
-@model List<Usuario>
+@model tl2_tp10_2023_TomasDLV.ViewModels.ListarUsuariosViewModel;
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -14,15 +14,19 @@
             <th hidden style="text-align: center;">Id</th>
             <th style="text-align: center;">ID</th>
             <th style="text-align: center;">NOMBRE</th>
+            <th style="text-align: center;">CONTRASEÑA</th>
+            <th style="text-align: center;">ROL</th>
             <th style="text-align: center;">ACCIONES</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var u in Model)
+        @foreach (var u in Model.Usuarios)
         {
             <tr>
                 <td style="text-align: center;">@u.Id</td>
                 <td style="text-align: center;">@u.Nombre_de_usuario</td>
+                <td style="text-align: center;">@u.Contrasenia</td>
+                <td style="text-align: center;">@u.Rol</td>
                 <td style="text-align: center;">
                     <div style="display: flex; justify-content: center; gap: 10px;">
                         <a asp-controller="Usuario" asp-action="editUser" asp-route-id="@u.Id" class="btn btn-primary">Editar</a>

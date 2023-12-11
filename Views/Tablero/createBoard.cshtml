@@ -1,7 +1,5 @@
 
-@using tl2_tp09_2023_TomasDLV.Models;
-
-@model Tablero
+@model tl2_tp10_2023_TomasDLV.ViewModels.CrearTableroViewModel
 @{ 
     ViewData["Title"] = "Crear Tablero";
 }
@@ -10,10 +8,8 @@
 
 <h1>@ViewData["Title"]</h1>
 <form asp-controller="Tablero" asp-action="createBoard" method="post">
-    <div class="form-group">
-        <label asp-for="@Model.IdUsuarioPropietario"></label>
-        <input asp-for="@Model.IdUsuarioPropietario" class="form-control" id="nombre" />
-    </div>
+    <input hidden asp-for="@Model.IdUsuarioPropietario" class="form-control" id="nombre" />
+    
     <div class="form-group">
         <label asp-for="@Model.Nombre"></label>
         <input asp-for="@Model.Nombre" class="form-control" id="nombre" />

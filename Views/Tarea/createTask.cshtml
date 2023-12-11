@@ -1,6 +1,6 @@
 
-@using tl2_tp09_2023_TomasDLV.Models;
-@model Tarea
+
+@model tl2_tp10_2023_TomasDLV.ViewModels.CrearTareaViewModel
 @{ 
     ViewData["Title"] = "Crear Tarea";
 }
@@ -31,8 +31,8 @@
         <input asp-for="@Model.Color" class="form-control" id="nombre" />
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Id_usuario_asignado"></label>
-        <input asp-for="@Model.Id_usuario_asignado" class="form-control" id="nombre" />
+        <label asp-for="@Model.IdUsuarioAsignado"></label>
+        <input asp-for="@Model.IdUsuarioAsignado" class="form-control" id="nombre" />
     </div>
     <button type="submit" class="btn btn-primary" >Enviar</button>
 </form>

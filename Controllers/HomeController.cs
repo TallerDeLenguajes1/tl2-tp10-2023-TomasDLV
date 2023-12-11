@@ -15,6 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        if(!logueado()) return RedirectToRoute(new {controller = "Login", action = "Index"});
         return View();
     }
 
@@ -28,4 +29,11 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+    private bool logueado(){
+        return HttpContext.Session.Keys.Any();
+    }
+    private bool esAdmin()
+        {
+            return HttpContext.Session.Keys.Any() && HttpContext.Session.GetInt32("rol") == 1;
+        }
 }

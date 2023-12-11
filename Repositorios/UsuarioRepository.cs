@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using tl2_tp09_2023_TomasDLV.Models;
+using Microsoft.AspNetCore.Identity;
+using tl2_tp10_2023_TomasDLV.ViewModels;
 
 namespace tl2_tp09_2023_TomasDLV.Repositorios
 {
@@ -17,15 +19,16 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
 
         public void CreateUser(Usuario usuario)
         {
-            var query = $"INSERT INTO Usuario (nombre_de_usuario) VALUES (@name)";
+            var query = $"INSERT INTO Usuario (nombre_de_usuario,contrasenia,rol) VALUES (@name,@contrasenia,@rol)";
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
 
 
                 var command = new SQLiteCommand(query, connection);
 
-                //command.Parameters.Add(new SQLiteParameter("@uid", usuario.Id));
                 command.Parameters.Add(new SQLiteParameter("@name", usuario.Nombre_de_usuario));
+                command.Parameters.Add(new SQLiteParameter("@contrasenia", usuario.Contrasenia));
+                command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
                 connection.Open();
                 command.ExecuteNonQuery();
 
@@ -35,13 +38,15 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
 
         public void UpdateUser(int id, Usuario usuario)
         {
-            var query = "UPDATE Usuario SET nombre_de_usuario = @nombre WHERE id = @id";
+            var query = "UPDATE Usuario SET nombre_de_usuario = @nombre,contrasenia = @contrasenia,rol = @rol WHERE id = @id";
 
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 var command = new SQLiteCommand(query, connection);
                 command.Parameters.Add(new SQLiteParameter("@nombre", usuario.Nombre_de_usuario));
                 command.Parameters.Add(new SQLiteParameter("@id", id));
+                command.Parameters.Add(new SQLiteParameter("@contrasenia", usuario.Contrasenia));
+                command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -64,6 +69,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                         var usuario = new Usuario();
                         usuario.Id = Convert.ToInt32(reader["id"]);
                         usuario.Nombre_de_usuario = reader["nombre_de_usuario"].ToString();
+                        usuario.Contrasenia = reader["contrasenia"].ToString();
+                        usuario.Rol = (NivelAcceso)Convert.ToInt32(reader["rol"]);
                         usuarios.Add(usuario);
                     }
                 }
@@ -85,6 +92,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 {
                     usuario.Id = Convert.ToInt32(reader["id"]);
                     usuario.Nombre_de_usuario = reader["nombre_de_usuario"].ToString();
+                    usuario.Contrasenia = reader["contrasenia"].ToString();
+                    usuario.Rol = (NivelAcceso)Convert.ToInt32(reader["rol"]);
                 }
             }
             connection.Close();
@@ -102,6 +111,11 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             connection.Open();
             command.ExecuteNonQuery();
             connection.Close();
+        }
+
+        internal void CreateUser(CrearUsuarioViewModel u)
+        {
+            throw new NotImplementedException();
         }
     }
 }

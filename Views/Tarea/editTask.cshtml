@@ -1,5 +1,5 @@
-@using tl2_tp09_2023_TomasDLV.Models
-@model Tarea
+
+@model tl2_tp10_2023_TomasDLV.ViewModels.ModificarTareaViewModel
 
 <form asp-controller="Tarea" asp-action="editTask" method="post">
     <input type="hidden" asp-for="@Model.Id" />
@@ -26,8 +26,8 @@
         <input asp-for="@Model.Color" class="form-control" />
     </div>
     <div class="mb-3">
-        <label class="form-label" asp-for="@Model.Id_usuario_asignado"> </label>
-        <input asp-for="@Model.Id_usuario_asignado" class="form-control" />
+        <label class="form-label" asp-for="@Model.IdUsuarioAsignado"> </label>
+        <input asp-for="@Model.IdUsuarioAsignado" class="form-control" />
     </div>
 
    

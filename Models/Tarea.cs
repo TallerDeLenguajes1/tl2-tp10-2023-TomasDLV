@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tl2_tp10_2023_TomasDLV.ViewModels;
 
 namespace tl2_tp09_2023_TomasDLV.Models
 {
@@ -33,25 +34,24 @@ namespace tl2_tp09_2023_TomasDLV.Models
         public int Id_usuario_asignado { get => id_usuario_asignado; set => id_usuario_asignado = value; }
         public EstadoTarea Estado { get => estado; set => estado = value; }
 
-        public Tarea(){}
         
-        // public Tarea(int Id, int IdTablero, string Nombre, int Estado, string Descripcion, string Color, int Id_usuario_asignado)
-        // {
-        //     id = Id;
-        //     idTablero = IdTablero;
-        //     nombre = Nombre;
-        //     estado = (EstadoTarea)Estado;
-        //     descripcion = Descripcion;
-        //     color = Color;
-        //     id_usuario_asignado = Id_usuario_asignado;
-        // }
-        // public void SetEstado(EstadoTarea Estado)
-        // {
-        //     estado = Estado;
-        // }
-        // public void SetEstado(int Estado)
-        // {
-        //     estado = (EstadoTarea)Estado;
-        // }
+        public Tarea(){}
+    public Tarea(CrearTareaViewModel tarea){
+        this.IdTablero = tarea.IdTablero;
+        this.Nombre = tarea.Nombre;
+        this.Descripcion = tarea.Descripcion;
+        this.Color = tarea.Color;
+        this.Estado = tarea.Estado;
+        this.Id_usuario_asignado = tarea.IdUsuarioAsignado;
+    }
+    public Tarea(ModificarTareaViewModel tarea){
+        this.Id = tarea.Id;
+        this.IdTablero = tarea.IdTablero;
+        this.Nombre = tarea.Nombre;
+        this.Descripcion = tarea.Descripcion;
+        this.Color = tarea.Color;
+        this.Estado = tarea.Estado;
+        this.Id_usuario_asignado = tarea.IdUsuarioAsignado;
+    }
     }
 }

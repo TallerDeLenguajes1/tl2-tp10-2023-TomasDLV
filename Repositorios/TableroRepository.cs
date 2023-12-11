@@ -59,14 +59,14 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 while (reader.Read())
                 {
                     tablero.Id = Convert.ToInt32(reader["id"]);
-                    tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id"]);
+                    tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
                     tablero.Nombre = reader["nombre"].ToString();
                     tablero.Descripcion = reader["descripcion"].ToString();
                 }
             }
             connection.Close();
 
-            return (tablero);
+            return tablero;
         }
         public List<Tablero> GetAllBoard()
         {
@@ -93,7 +93,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
             }
             return tableros;
         }
-        public List<Tablero> GetAllByIdBoard(int id)
+        public List<Tablero> GetAllBoardsByIdUser(int idUser)
         {
             var queryString = @"SELECT * FROM Tablero;";
             List<Tablero> tableros = new List<Tablero>();
@@ -110,7 +110,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                         
                         tablero.IdUsuarioPropietario = Convert.ToInt32(reader["id_usuario_propietario"]);
                         
-                        if (tablero.IdUsuarioPropietario == id)
+                        if (tablero.IdUsuarioPropietario == idUser)
                         {
                             tablero.Id = Convert.ToInt32(reader["id"]);
                             tablero.Nombre = reader["nombre"].ToString();
