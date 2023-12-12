@@ -79,8 +79,10 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
             }
             connection.Close();
+            if (tarea == null)
+                throw new Exception("Tarea no encontrada");
 
-            return (tarea);
+            return tarea;
         }
 
         public List<Tarea> GetAllTask()
@@ -113,6 +115,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
                 connection.Close();
             }
+            if (tareas == null)
+                throw new Exception("No hay tareas");
             return tareas;
         }
         public List<Tarea> GetAllTaskByIdUser(int idUser)
@@ -144,6 +148,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
                 connection.Close();
             }
+            if (tareas == null)
+                throw new Exception("El usuario no posee tareas");
             return tareas;
         }
         public List<Tarea> GetAllTaskByIdBoard(int idBoard)
@@ -173,6 +179,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
                 connection.Close();
             }
+            if (tareas == null)
+                throw new Exception("El tablero no posee tareas");
             return tareas;
         }
         public void RemoveTask(int id)
@@ -197,9 +205,10 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@id_usuario_asignado", idUsuario));
 
                 connection.Open();
-                command.ExecuteNonQuery();
+                var filas = command.ExecuteNonQuery();
 
                 connection.Close();
+                if(filas == 0) throw new Exception("Hubo un problema al asignar un usuario a la tarea");
             }
         }
     }

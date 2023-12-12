@@ -12,7 +12,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
     public class UsuarioRepository : IUsuarioRepository
     {
         private string cadenaConexion;
-        public UsuarioRepository(string CadenaConexion){
+        public UsuarioRepository(string CadenaConexion)
+        {
             cadenaConexion = CadenaConexion;
         }
 
@@ -29,9 +30,10 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@contrasenia", usuario.Contrasenia));
                 command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
                 connection.Open();
-                command.ExecuteNonQuery();
+                var filas = command.ExecuteNonQuery();
 
                 connection.Close();
+                if(filas == 0) throw new Exception("Hubo un problema al crear el usuario");
             }
         }
 
@@ -48,8 +50,9 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 command.Parameters.Add(new SQLiteParameter("@rol", usuario.Rol));
 
                 connection.Open();
-                command.ExecuteNonQuery();
+                var filas = command.ExecuteNonQuery();
                 connection.Close();
+                if(filas == 0) throw new Exception("Hubo un problema al modificar el usuario");
             }
         }
         public List<Usuario> GetAllUser()
@@ -75,6 +78,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
                 connection.Close();
             }
+            if (usuarios == null)
+                throw new Exception("No existen usuarios.");
             return usuarios;
         }
         public Usuario GetByIdUser(int idUsuario)
@@ -96,8 +101,9 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
             }
             connection.Close();
-
-            return (usuario);
+            if (usuario == null)
+                throw new Exception("Usuario no encontrado.");
+            return usuario;
         }
 
         public void RemoveUser(int id)

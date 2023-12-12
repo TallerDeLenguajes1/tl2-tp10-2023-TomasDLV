@@ -94,6 +94,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
                 connection.Close();
             }
+            if (tableros == null)
+                throw new Exception("No hay tableros");
             return tableros;
         }
         public List<Tablero> GetAllBoardsByIdUser(int idUser)
@@ -124,6 +126,8 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                 }
                 connection.Close();
             }
+            if (tableros == null)
+                throw new Exception("El usuario no posee tableros");
             return tableros;
         }
         public void RemoveBoard(int id)

@@ -32,14 +32,25 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel usuarioLogged)
         {
-            if(!ModelState.IsValid) return RedirectToAction("Index");
-            var usuario = _usuario.GetAllUser().FirstOrDefault(u => u.Nombre_de_usuario == usuarioLogged.Nombre && u.Contrasenia == usuarioLogged.Contrasenia);
-            if (usuario == null)
+            try
             {
-                return RedirectToAction("Index");
+                if(!ModelState.IsValid) return RedirectToAction("Index");
+                var usuario = _usuario.GetAllUser().FirstOrDefault(u => u.Nombre_de_usuario == usuarioLogged.Nombre && u.Contrasenia == usuarioLogged.Contrasenia);
+                if (usuario == null)
+                {
+                    _logger.LogWarning("Intento de acceso invalido - Usuario: {0} Clave ingresada: {1}", usuarioLogged.Nombre, usuarioLogged.Contrasenia);
+                    return RedirectToAction("Index");
+                }
+                LoguearUsuario(usuario);
+                _logger.LogInformation("El usuario {0} ingreso correctamente", usuario.Nombre_de_usuario);
+                return RedirectToRoute(new{controller = "Home", action = "Index"});
             }
-            LoguearUsuario(usuario);
-            return RedirectToRoute(new{controller = "Home", action = "Index"});
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest();
+
+            }
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public void LoguearUsuario(Usuario usuario){

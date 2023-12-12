@@ -26,18 +26,25 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
 
         public IActionResult Index()
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            var usuarios = new List<Usuario>();
-            if (esAdmin())
+            
+            try
             {
-                usuarios = _usuario.GetAllUser();
-            }else
-            {
-                usuarios.Add(_usuario.GetByIdUser((int)HttpContext.Session.GetInt32("id")));
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                var usuarios = new List<Usuario>();
+                if (esAdmin())
+                {
+                    usuarios = _usuario.GetAllUser();
+                }else
+                {
+                    usuarios.Add(_usuario.GetByIdUser((int)HttpContext.Session.GetInt32("id")));
+                }
+                return View(new ListarUsuariosViewModel(usuarios));
             }
-            
-            
-            return View(new ListarUsuariosViewModel(usuarios));
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -56,25 +63,41 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult createUser(CrearUsuarioViewModel usuario)
         {
-            if(!ModelState.IsValid) return RedirectToAction("Index");
-            _usuario.CreateUser(new Usuario(usuario));
-            return RedirectToAction("Index");
+            try
+            {
+                if(!ModelState.IsValid) return RedirectToAction("Index");
+                _usuario.CreateUser(new Usuario(usuario));
+                return RedirectToAction("Index");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
         public IActionResult editUser(int id)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            if(!(id>0)) return RedirectToAction("Index");
-
-            Usuario usuario = _usuario.GetByIdUser(id);
-            if (esAdmin() || (int)HttpContext.Session.GetInt32("id") == id)
+            try
             {
-                usuario = _usuario.GetByIdUser(id);
-                return View(new ModificarUsuarioViewModel(usuario));
-            }else
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                if(!(id>0)) return RedirectToAction("Index");
+    
+                Usuario usuario = _usuario.GetByIdUser(id);
+                if (esAdmin() || (int)HttpContext.Session.GetInt32("id") == id)
+                {
+                    usuario = _usuario.GetByIdUser(id);
+                    return View(new ModificarUsuarioViewModel(usuario));
+                }else
+                {
+                    return RedirectToRoute(new { controller = "Login", action = "Index" });
+                }
+            }
+            catch (System.Exception ex)
             {
-                return RedirectToRoute(new { controller = "Login", action = "Index" });
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
             }
             
         }
@@ -82,29 +105,45 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult editUser(ModificarUsuarioViewModel usuario)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            if(!ModelState.IsValid) return RedirectToAction("Index");
-            _usuario.UpdateUser(usuario.Id, new Usuario(usuario));
-
-            return RedirectToAction("Index");
+            try
+            {
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                if(!ModelState.IsValid) return RedirectToAction("Index");
+                _usuario.UpdateUser(usuario.Id, new Usuario(usuario));
+    
+                return RedirectToAction("Index");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpPost]
         public IActionResult removeUser(int id)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            if(!(id>0)) return RedirectToAction("Index");
-            if (esAdmin() || (int)HttpContext.Session.GetInt32("id") == id)
+            try
             {
-                _usuario.RemoveUser(id);
-                if (id == (int)HttpContext.Session.GetInt32("id"))
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                if(!(id>0)) return RedirectToAction("Index");
+                if (esAdmin() || (int)HttpContext.Session.GetInt32("id") == id)
+                {
+                    _usuario.RemoveUser(id);
+                    if (id == (int)HttpContext.Session.GetInt32("id"))
+                    {
+                        return RedirectToRoute(new { controller = "Login", action = "Index" });
+                    }
+                    return RedirectToAction("Index");
+                }else
                 {
                     return RedirectToRoute(new { controller = "Login", action = "Index" });
                 }
-                return RedirectToAction("Index");
-            }else
+            }
+            catch (System.Exception ex)
             {
-                return RedirectToRoute(new { controller = "Login", action = "Index" });
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
             }
             
 

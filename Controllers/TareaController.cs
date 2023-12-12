@@ -19,9 +19,17 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
 
         public IActionResult Index()
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            var tasks = _tareaRepository.GetAllTask();
-            return View(new ListarTareasViewModel(tasks));
+            try
+            {
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                var tasks = _tareaRepository.GetAllTask();
+                return View(new ListarTareasViewModel(tasks));
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
 
         }
 
@@ -42,10 +50,18 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult createTask(CrearTareaViewModel task)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            if(!ModelState.IsValid) return RedirectToAction("Index");
-            _tareaRepository.CreateTask(new Tarea(task));
-            return RedirectToAction("Index");
+            try
+            {
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                if(!ModelState.IsValid) return RedirectToAction("Index");
+                _tareaRepository.CreateTask(new Tarea(task));
+                return RedirectToAction("Index");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
@@ -53,27 +69,42 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
             var task = _tareaRepository.GetTaskById(id);
-
             return View(new ModificarTareaViewModel(task));
         }
 
         [HttpPost]
         public IActionResult editTask(ModificarTareaViewModel tarea)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            if(!ModelState.IsValid) return RedirectToAction("Index");
-
-            _tareaRepository.UpdateTask(tarea.Id,new Tarea(tarea));
-
-            return RedirectToAction("Index");
+            try
+            {
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                if(!ModelState.IsValid) return RedirectToAction("Index");
+    
+                _tareaRepository.UpdateTask(tarea.Id,new Tarea(tarea));
+    
+                return RedirectToAction("Index");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpPost]
         public IActionResult removeTask(int id)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            _tareaRepository.RemoveTask(id);
-            return RedirectToAction("Index");
+            try
+            {
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                _tareaRepository.RemoveTask(id);
+                return RedirectToAction("Index");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
 
         }
 

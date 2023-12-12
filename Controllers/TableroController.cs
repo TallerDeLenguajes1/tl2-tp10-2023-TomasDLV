@@ -18,7 +18,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         private readonly ITableroRepository _tableroRepository;
 
 
-        public TableroController(ILogger<TableroController> logger,ITableroRepository tableroRepository)
+        public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository)
         {
             _logger = logger;
             _tableroRepository = tableroRepository;
@@ -28,7 +28,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             try
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-    
+
                 var boards = new List<Tablero>();
                 if (esAdmin())
                 {
@@ -38,14 +38,14 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
                 {
                     boards = _tableroRepository.GetAllBoardsByIdUser((int)HttpContext.Session.GetInt32("id"));
                 }
-    
-    
+
+
                 return View(new ListarTablerosViewModel(boards));
             }
             catch (System.Exception ex)
             {
-                
-                throw;
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
             }
 
         }
@@ -67,10 +67,18 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult createBoard(CrearTableroViewModel board)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            if(!ModelState.IsValid) return RedirectToAction("Index");
-            _tableroRepository.CreateBoard(new Tablero(board));
-            return RedirectToAction("Index");
+            try
+            {
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                if (!ModelState.IsValid) return RedirectToAction("Index");
+                _tableroRepository.CreateBoard(new Tablero(board));
+                return RedirectToAction("Index");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
+            }
         }
 
         [HttpGet]
@@ -85,35 +93,51 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult editBoard(ModificarTableroViewModel tablero)
         {
-            if(!logueado()) return RedirectToRoute(new {controller = "Login", action = "Index"});
-            if(!ModelState.IsValid) return RedirectToAction("Index");           
-            //Checkeo que el tablero sea de quien inicio la sesion o que sea un admin
-            if (esAdmin() || (tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
+            try
             {
-                _tableroRepository.UpdateBoard(tablero.Id, new Tablero(tablero));
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+                if (!ModelState.IsValid) return RedirectToAction("Index");
+                //Checkeo que el tablero sea de quien inicio la sesion o que sea un admin
+                if (esAdmin() || (tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
+                {
+                    _tableroRepository.UpdateBoard(tablero.Id, new Tablero(tablero));
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToRoute(new { controller = "Login", action = "Index" });
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                return RedirectToRoute(new { controller = "Login", action = "Index" });
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
             }
         }
 
         [HttpPost]
         public IActionResult removeBoard(int id)
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-
-            if (esAdmin() || (_tableroRepository.GetByIdBoard(id).IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
+            try
             {
-                _tableroRepository.RemoveBoard(id);
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
 
-                return RedirectToAction("Index");
+                if (esAdmin() || (_tableroRepository.GetByIdBoard(id).IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
+                {
+                    _tableroRepository.RemoveBoard(id);
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToRoute(new { controller = "Login", action = "Index" });
+                }
             }
-            else
+            catch (System.Exception ex)
             {
-                return RedirectToRoute(new { controller = "Login", action = "Index" });
+                _logger.LogError(ex.ToString());
+                return RedirectToAction("Error");
             }
 
         }
