@@ -11,11 +11,10 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
-
-
-
-
+        private string cadenaConexion;
+        public UsuarioRepository(string CadenaConexion){
+            cadenaConexion = CadenaConexion;
+        }
 
         public void CreateUser(Usuario usuario)
         {

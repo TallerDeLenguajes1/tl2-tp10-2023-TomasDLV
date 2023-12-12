@@ -18,10 +18,10 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         private readonly ILogger<LoginController> _logger;
         private IUsuarioRepository _usuario;
 
-        public LoginController(ILogger<LoginController> logger)
+        public LoginController(ILogger<LoginController> logger,IUsuarioRepository usuarioRepository)
         {
             _logger = logger;
-            _usuario = new UsuarioRepository();
+            _usuario = usuarioRepository;
         }
 
         [HttpGet]
@@ -32,6 +32,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel usuarioLogged)
         {
+            if(!ModelState.IsValid) return RedirectToAction("Index");
             var usuario = _usuario.GetAllUser().FirstOrDefault(u => u.Nombre_de_usuario == usuarioLogged.Nombre && u.Contrasenia == usuarioLogged.Contrasenia);
             if (usuario == null)
             {

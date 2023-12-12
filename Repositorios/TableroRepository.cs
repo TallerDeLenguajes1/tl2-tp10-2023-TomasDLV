@@ -9,7 +9,10 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
 {
     public class TableroRepository: ITableroRepository
     {
-        private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private readonly string cadenaConexion;
+        public TableroRepository(string CadenaConexion){
+            this.cadenaConexion = CadenaConexion;
+        }
         public void CreateBoard(Tablero tablero)
         {
             var query = $"INSERT INTO Tablero (id_usuario_propietario, nombre,descripcion) VALUES (@idusu,@nombre,@descripcion)";

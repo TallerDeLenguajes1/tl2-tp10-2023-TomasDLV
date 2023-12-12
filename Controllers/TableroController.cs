@@ -15,30 +15,38 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
     public class TableroController : Controller
     {
         private readonly ILogger<TableroController> _logger;
-        private TableroRepository _manejo;
+        private readonly ITableroRepository _tableroRepository;
 
 
-        public TableroController(ILogger<TableroController> logger)
+        public TableroController(ILogger<TableroController> logger,ITableroRepository tableroRepository)
         {
             _logger = logger;
-            _manejo = new TableroRepository();
+            _tableroRepository = tableroRepository;
         }
         public IActionResult Index()
         {
-            if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-
-            var boards = new List<Tablero>();
-            if (esAdmin())
+            try
             {
-                boards = _manejo.GetAllBoard();
+                if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+    
+                var boards = new List<Tablero>();
+                if (esAdmin())
+                {
+                    boards = _tableroRepository.GetAllBoard();
+                }
+                else
+                {
+                    boards = _tableroRepository.GetAllBoardsByIdUser((int)HttpContext.Session.GetInt32("id"));
+                }
+    
+    
+                return View(new ListarTablerosViewModel(boards));
             }
-            else
+            catch (System.Exception ex)
             {
-                boards = _manejo.GetAllBoardsByIdUser((int)HttpContext.Session.GetInt32("id"));
+                
+                throw;
             }
-
-
-            return View(new ListarTablerosViewModel(boards));
 
         }
 
@@ -60,7 +68,8 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult createBoard(CrearTableroViewModel board)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            _manejo.CreateBoard(new Tablero(board));
+            if(!ModelState.IsValid) return RedirectToAction("Index");
+            _tableroRepository.CreateBoard(new Tablero(board));
             return RedirectToAction("Index");
         }
 
@@ -68,7 +77,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult editBoard(int idBoard)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            var board = _manejo.GetByIdBoard(idBoard);
+            var board = _tableroRepository.GetByIdBoard(idBoard);
             return View(new ModificarTableroViewModel(board));
 
         }
@@ -77,11 +86,11 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult editBoard(ModificarTableroViewModel tablero)
         {
             if(!logueado()) return RedirectToRoute(new {controller = "Login", action = "Index"});
-           
+            if(!ModelState.IsValid) return RedirectToAction("Index");           
             //Checkeo que el tablero sea de quien inicio la sesion o que sea un admin
             if (esAdmin() || (tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
             {
-                _manejo.UpdateBoard(tablero.Id, new Tablero(tablero));
+                _tableroRepository.UpdateBoard(tablero.Id, new Tablero(tablero));
 
                 return RedirectToAction("Index");
             }
@@ -96,9 +105,9 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
 
-            if (esAdmin() || (_manejo.GetByIdBoard(id).IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
+            if (esAdmin() || (_tableroRepository.GetByIdBoard(id).IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
             {
-                _manejo.RemoveBoard(id);
+                _tableroRepository.RemoveBoard(id);
 
                 return RedirectToAction("Index");
             }

@@ -3,21 +3,25 @@
 <form asp-controller="Usuario" asp-action="editUser" method="post">
     <input type="hidden" asp-for="@Model.Id" />
 
-    <div class="mb-3">
-        <label class="form-label" asp-for="@Model.Nombre">Nombre de Usuario: </label>
+    <div class="form-group">
+        <label  asp-for="@Model.Nombre"></label>
         <input asp-for="@Model.Nombre" class="form-control" />
+        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label>Contraseña</label>
-        <input asp-for="@Model.Contrasenia" class="form-control" id="nombre" />
+        <label asp-for="@Model.Contrasenia"></label>
+        <input asp-for="@Model.Contrasenia" class="form-control"  />
+        <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
     </div>
-    <label asp-for="@Model.Rol"></label>
-    <select asp-for="@Model.Rol" class="form-control" id="rol">
-
-        <option value="1">Administrador</option>
-        <option value="2">Operador</option>
-    </select>
+    <div class="form-group">
+        <label asp-for="@Model.Rol"></label>
+        <select asp-for="@Model.Rol" class="form-control" >
+            <option value="1">Administrador</option>
+            <option value="2">Operador</option>
+        </select>
+    </div>
 
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
 </form>
+@section Scripts{<partial name="_ValidationScriptsPartial"/>}

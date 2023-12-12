@@ -9,7 +9,10 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
 {
     public class TareaRepository : ITareaRepository
     {
-        private string cadenaConexion = "Data Source=DB/kanban.db;Cache=Shared";
+        private string cadenaConexion;
+        public TareaRepository(string CadenaConexion){
+            cadenaConexion = CadenaConexion;
+        }
         public void CreateTask(Tarea tarea)
         {
             var query = $"INSERT INTO Tarea (id_tablero, nombre,estado,descripcion,color,id_usuario_asignado) VALUES (@idtab,@nombre,@estado,@descripcion,@color,@id_usuario_asignado)";

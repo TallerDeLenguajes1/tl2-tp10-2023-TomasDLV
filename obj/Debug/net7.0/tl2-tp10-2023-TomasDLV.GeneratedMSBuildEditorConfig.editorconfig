@@ -9,77 +9,77 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = tl2_tp10_2023_TomasDLV
 build_property.RootNamespace = tl2_tp10_2023_TomasDLV
-build_property.ProjectDir = e:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV\
+build_property.ProjectDir = E:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = e:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV
+build_property.MSBuildProjectDirectory = E:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV
 build_property._RazorSourceGeneratorDebug = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Home/Index.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Home/Privacy.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Login/index.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Login/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5caW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Shared/Error.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Shared/_ValidationScriptsPartial.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tablero/createBoard.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tablero/createBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xjcmVhdGVCb2FyZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tablero/editBoard.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tablero/editBoard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xlZGl0Qm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tablero/index.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tablero/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVyb1xpbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tarea/createTask.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tarea/createTask.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcY3JlYXRlVGFzay5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tarea/editTask.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tarea/editTask.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcZWRpdFRhc2suY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tarea/index.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Tarea/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFyZWFcaW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Usuario/createUser.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Usuario/createUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xjcmVhdGVVc2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Usuario/editUser.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Usuario/editUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xlZGl0VXNlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Usuario/index.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Usuario/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xpbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/_ViewImports.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/_ViewStart.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[e:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Shared/_Layout.cshtml]
+[E:/Tomas FACET/3erAño/Taller 2/tl2-tp10-2023-TomasDLV/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-coidjibyfk

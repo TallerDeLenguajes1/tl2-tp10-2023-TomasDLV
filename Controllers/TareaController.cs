@@ -9,18 +9,18 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
     public class TareaController : Controller
     {
         private readonly ILogger<TareaController> _logger;
-        private TareaRepository _manejo;
+        private ITareaRepository _tareaRepository;
         
-        public TareaController(ILogger<TareaController> logger)
+        public TareaController(ILogger<TareaController> logger,ITareaRepository tareaRepository)
         {
             _logger = logger;
-            _manejo = new TareaRepository();
+            _tareaRepository = tareaRepository;
         }
 
         public IActionResult Index()
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            var tasks = _manejo.GetAllTask();
+            var tasks = _tareaRepository.GetAllTask();
             return View(new ListarTareasViewModel(tasks));
 
         }
@@ -43,7 +43,8 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult createTask(CrearTareaViewModel task)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            _manejo.CreateTask(new Tarea(task));
+            if(!ModelState.IsValid) return RedirectToAction("Index");
+            _tareaRepository.CreateTask(new Tarea(task));
             return RedirectToAction("Index");
         }
 
@@ -51,7 +52,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult editTask(int id)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            var task = _manejo.GetTaskById(id);
+            var task = _tareaRepository.GetTaskById(id);
 
             return View(new ModificarTareaViewModel(task));
         }
@@ -60,7 +61,9 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult editTask(ModificarTareaViewModel tarea)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            _manejo.UpdateTask(tarea.Id,new Tarea(tarea));
+            if(!ModelState.IsValid) return RedirectToAction("Index");
+
+            _tareaRepository.UpdateTask(tarea.Id,new Tarea(tarea));
 
             return RedirectToAction("Index");
         }
@@ -69,7 +72,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult removeTask(int id)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            _manejo.RemoveTask(id);
+            _tareaRepository.RemoveTask(id);
             return RedirectToAction("Index");
 
         }

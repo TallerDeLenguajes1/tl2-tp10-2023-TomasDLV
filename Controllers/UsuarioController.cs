@@ -16,12 +16,12 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
     public class UsuarioController : Controller
     {
         private readonly ILogger<UsuarioController> _logger;
-        private UsuarioRepository _manejo;
+        private IUsuarioRepository _usuario;
 
-        public UsuarioController(ILogger<UsuarioController> logger)
+        public UsuarioController(ILogger<UsuarioController> logger,IUsuarioRepository usuarioRepository)
         {
             _logger = logger;
-            _manejo = new UsuarioRepository();
+            _usuario = usuarioRepository;
         }
 
         public IActionResult Index()
@@ -30,11 +30,12 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             var usuarios = new List<Usuario>();
             if (esAdmin())
             {
-                usuarios = _manejo.GetAllUser();
+                usuarios = _usuario.GetAllUser();
             }else
             {
-                usuarios.Add(_manejo.GetByIdUser((int)HttpContext.Session.GetInt32("id")));
+                usuarios.Add(_usuario.GetByIdUser((int)HttpContext.Session.GetInt32("id")));
             }
+            
             
             return View(new ListarUsuariosViewModel(usuarios));
         }
@@ -55,7 +56,8 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         [HttpPost]
         public IActionResult createUser(CrearUsuarioViewModel usuario)
         {
-            _manejo.CreateUser(new Usuario(usuario));
+            if(!ModelState.IsValid) return RedirectToAction("Index");
+            _usuario.CreateUser(new Usuario(usuario));
             return RedirectToAction("Index");
         }
 
@@ -63,10 +65,12 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult editUser(int id)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            Usuario usuario = _manejo.GetByIdUser(id);
+            if(!(id>0)) return RedirectToAction("Index");
+
+            Usuario usuario = _usuario.GetByIdUser(id);
             if (esAdmin() || (int)HttpContext.Session.GetInt32("id") == id)
             {
-                usuario = _manejo.GetByIdUser(id);
+                usuario = _usuario.GetByIdUser(id);
                 return View(new ModificarUsuarioViewModel(usuario));
             }else
             {
@@ -79,7 +83,8 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult editUser(ModificarUsuarioViewModel usuario)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-            _manejo.UpdateUser(usuario.Id, new Usuario(usuario));
+            if(!ModelState.IsValid) return RedirectToAction("Index");
+            _usuario.UpdateUser(usuario.Id, new Usuario(usuario));
 
             return RedirectToAction("Index");
         }
@@ -88,9 +93,10 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult removeUser(int id)
         {
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
+            if(!(id>0)) return RedirectToAction("Index");
             if (esAdmin() || (int)HttpContext.Session.GetInt32("id") == id)
             {
-                _manejo.RemoveUser(id);
+                _usuario.RemoveUser(id);
                 if (id == (int)HttpContext.Session.GetInt32("id"))
                 {
                     return RedirectToRoute(new { controller = "Login", action = "Index" });
