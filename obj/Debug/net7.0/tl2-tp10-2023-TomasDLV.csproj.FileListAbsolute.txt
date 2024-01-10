@@ -114,3 +114,5 @@ E:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV\obj\Debug\net7.0\scopedcs
 E:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV\obj\Debug\net7.0\tl2-tp10-2023-TomasDLV.csproj.CopyComplete
 E:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV\obj\Debug\net7.0\tl2-tp10-2023-TomasDLV.genruntimeconfig.cache
 E:\Tomas FACET\3erAño\Taller 2\tl2-tp10-2023-TomasDLV\obj\Debug\net7.0\ref\tl2-tp10-2023-TomasDLV.dll
+C:\Users\tomas\OneDrive\Desktop\3er año\Repositorio Taller2\tl2-tp10-2023-TomasDLV\bin\Debug\net7.0\package-lock.json
+C:\Users\tomas\OneDrive\Desktop\3er año\Repositorio Taller2\tl2-tp10-2023-TomasDLV\bin\Debug\net7.0\package.json

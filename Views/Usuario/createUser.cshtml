@@ -1,32 +1,73 @@
-
-
-@model tl2_tp10_2023_TomasDLV.ViewModels.CrearUsuarioViewModel;
-@{ 
-    ViewData["Title"] = "Crear Usuario";
+@{
+    Layout = null; // Esto indica que no se utilizará ningún layout para esta vista
 }
+@using tl2_tp10_2023_TomasDLV.ViewModels
+@model CrearUsuarioViewModel
+@{
+    ViewData["Title"] = "SignUp";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - KanBan</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/tl2_tp10_2023_TomasDLV.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <section class="h-100 gradient-custom">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5 ">
+                    <div class="card bg-dark text-white " style="border-radius: 1rem;">
+                        <div class="card-body p-5 text-center">
+
+                            <form asp-controller="Usuario" asp-action="createUser" method="post" class="mb-md-5 mt-md-4 pb-5">
+
+                                <h2 class="fw-bold mb-2 text-uppercase">Sign Up</h2>
+                                <p class="text-white-50 mb-5">Please create your username and password!</p>
+
+                                <div class="form-outline form-white mb-4">
+                                    <input asp-for="@Model.Nombre" id="nombre" class="form-control form-control-lg" />
+                                    <label asp-for="@Model.Nombre" class="form-label" for="typeEmailX">Usuario</label>
+                                    <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-outline form-white mb-4">
+                                    <input type="password" asp-for="@Model.Contrasenia" id="typePasswordX"
+                                        class="form-control form-control-lg" />
+                                    <label class="form-label" for="typePasswordX">Password</label>
+                                    <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
+                                </div>
+
+                                
+
+                                <button class="btn btn-outline-light btn-lg px-5" type="submit">CREATE</button>
 
 
 
-<h1>@ViewData["Title"]</h1>
-<form asp-controller="Usuario" asp-action="createUser" method="post">
-    
-    <div class="form-group">
-        <label asp-for="@Model.Nombre"></label>
-        <input asp-for="@Model.Nombre" class="form-control"  />
-        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Contrasenia"></label>
-        <input asp-for="@Model.Contrasenia" class="form-control"  />
-        <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Rol"></label>
-        <select asp-for="@Model.Rol" class="form-control" >
-            <option value="1">Administrador</option>
-            <option value="2">Operador</option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-primary" >Enviar</button>
-</form>
-@section Scripts{<partial name="_ValidationScriptsPartial"/>}
+                            </form>
+                            <div>
+                                <p class="mb-0">Do you have an account? <a asp-area="" asp-controller="Login" asp-action="Index" class="text-white-50 fw-bold">LogIn</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+
+</html>

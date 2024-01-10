@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Tomas FACET\\3erAño\\Taller 2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj": {}
+    "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj": {}
   },
   "projects": {
-    "E:\\Tomas FACET\\3erAño\\Taller 2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj": {
+    "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Tomas FACET\\3erAño\\Taller 2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj",
+        "projectUniqueName": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj",
         "projectName": "tl2-tp10-2023-TomasDLV",
-        "projectPath": "E:\\Tomas FACET\\3erAño\\Taller 2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj",
-        "packagesPath": "C:\\Users\\TomasDLV\\.nuget\\packages\\",
-        "outputPath": "E:\\Tomas FACET\\3erAño\\Taller 2\\tl2-tp10-2023-TomasDLV\\obj\\",
+        "projectPath": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\tl2-tp10-2023-TomasDLV.csproj",
+        "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\TomasDLV\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\tomas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
