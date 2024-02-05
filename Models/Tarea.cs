@@ -9,10 +9,10 @@ namespace tl2_tp09_2023_TomasDLV.Models
     public enum EstadoTarea
     {
         Ideas,
-        ToDo,
-        Doing,
-        Review,
-        Done
+        Pendientes,
+        EnProceso,
+        Revisar,
+        Terminado
     }
 
     public class Tarea

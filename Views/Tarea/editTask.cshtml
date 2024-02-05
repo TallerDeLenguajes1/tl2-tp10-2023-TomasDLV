@@ -1,13 +1,10 @@
 @model tl2_tp10_2023_TomasDLV.ViewModels.ModificarTareaViewModel
 
 <form asp-controller="Tarea" asp-action="editTask" method="post">
+    
     <input type="hidden" asp-for="@Model.Id" />
-
-    <div class="mb-3">
-        <label class="form-label" asp-for="@Model.IdTablero"> </label>
-        <input asp-for="@Model.IdTablero" class="form-control" />
-        <span asp-validation-for="@Model.IdTablero" class="text-danger"></span>
-    </div>
+    <input hidden asp-for="@Model.IdTablero" class="form-control" id="nombre" />
+    
     <div class="mb-3">
         <label class="form-label" asp-for="@Model.Nombre"> </label>
         <input asp-for="@Model.Nombre" class="form-control" />
@@ -17,10 +14,10 @@
         <label asp-for="@Model.Estado"></label>
         <select asp-for="@Model.Estado" class="form-control" id="estado">
             <option value="Ideas">Ideas</option>
-            <option value="ToDo">ToDo</option>
-            <option value="Doing">Doing</option>
-            <option value="Review">Review</option>
-            <option value="Done">Done</option>
+            <option value="Pendientes">Pendientes</option>
+            <option value="EnProceso">EnProceso</option>
+            <option value="Revisar">Revisar</option>
+            <option value="Terminado">Done</option>
         </select>
         <span asp-validation-for="@Model.Estado" class="text-danger"></span>
     </div>
@@ -34,9 +31,15 @@
         <input asp-for="@Model.Color" class="form-control" />
 
     </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="@Model.IdUsuarioAsignado"> </label>
-        <input asp-for="@Model.IdUsuarioAsignado" class="form-control" />
+    <div class="form-group">
+        <label asp-for="@Model.IdUsuarioAsignado">Usuario Asignado</label>
+        <select asp-for="@Model.IdUsuarioAsignado" class="form-control" id="idUsuarioAsignado">
+            @foreach (var user in Model.Usuarios)
+            {
+                <option value="@user.Id">@user.Nombre_de_usuario</option>
+            }
+        </select>
+        <span asp-validation-for="@Model.IdUsuarioAsignado" class="text-danger"></span>
     </div>
 
 
@@ -45,7 +48,7 @@
     
 </form>
 <form asp-controller="Tarea" asp-action="removeTask" method="post"
-        onsubmit="return confirm('¿Estás seguro que quieres eliminar el tablero?')">
+        onsubmit="return confirm('¿Estás seguro que quieres eliminar la Tarea?')">
         <input type="hidden" name="id" value="@Model.Id" />
         <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>

@@ -3,7 +3,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>Boards</h3>
+<h3>Tableros</h3>
 
 <div class="row mb-4">
     <div class="col-md-4 offset-md-4">
@@ -16,7 +16,8 @@
         </a>
     </div>
 </div>
-
+<h5>Tus Tableros</h5>
+<hr>
 <div class="row justify-content-center">
     @foreach (var t in Model.tableros)
     {
@@ -34,3 +35,5 @@
         </div>
     }
 </div>
+<h5>Tableros Ajenos</h5>
+<hr>

@@ -16,12 +16,14 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
     {
         private readonly ILogger<TableroController> _logger;
         private readonly ITableroRepository _tableroRepository;
+        private readonly ITareaRepository _tareaRepository;
 
 
-        public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository)
+        public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository,ITareaRepository tareaRepository)
         {
             _logger = logger;
             _tableroRepository = tableroRepository;
+            _tareaRepository = tareaRepository;
         }
         public IActionResult Index()
         {
@@ -30,6 +32,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
 
                 var boards = new List<Tablero>();
+                var tasks = _tareaRepository.GetAllTask();;
                 if (esAdmin())
                 {
                     boards = _tableroRepository.GetAllBoard();

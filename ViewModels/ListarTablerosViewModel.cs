@@ -8,9 +8,12 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
 {
     public class ListarTablerosViewModel
     {
-        public List<Tablero> tableros;
+        public List<Tablero> TablerosPropios  {get;set;}
+        public List<Tablero> TablerosAjenos {get;set;}
         public ListarTablerosViewModel(List<Tablero> tableros){
-            this.tableros = tableros;
+
+            this.TablerosPropios = tableros.Where(t => t.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"));
+            this.TablerosAjenos = ;
         }
     }
 }

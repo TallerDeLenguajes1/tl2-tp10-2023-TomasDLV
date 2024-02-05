@@ -6,7 +6,16 @@
     var tasksByState = Model.Tareas.GroupBy(t => t.Estado).ToDictionary(g => g.Key, g => g.ToList());
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-12">
+        <h2>@Model.TableroInfo.Nombre</h2>
+        <p>@Model.TableroInfo.Descripcion</p>
+        <!-- Botón para añadir tarea -->
+        <div class="d-flex justify-content-center">
+            <a asp-controller="Tarea" asp-action="createTask" asp-route-idBoard="@Model.TableroInfo.Id"class="btn btn-success btn-sm">Agregar tarea</a>
+        </div>
+    </div>
+</div>
 
 <div class="row">
     @foreach (var state in Enum.GetValues(typeof(tl2_tp09_2023_TomasDLV.Models.EstadoTarea)))
@@ -22,7 +31,7 @@
                             <h5 class="card-title">@task.Nombre</h5>
                             <p class="card-text">@task.Descripcion</p>
                             <!-- Botón de editar -->
-                            <a asp-controller="Tarea" asp-action="editTask" asp-route-id="@task.Id" class="btn btn-primary">Editar</a>
+                            <a asp-controller="Tarea" asp-action="editTask" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Editar</a>
                         </div>
                     </div>
                 }

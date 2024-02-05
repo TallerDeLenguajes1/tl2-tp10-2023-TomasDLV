@@ -75,7 +75,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                     tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]);
                     tarea.Descripcion = reader["descripcion"].ToString();
                     tarea.Descripcion = reader["color"].ToString();
-                    tarea.IdTablero = Convert.ToInt32(reader["id_usuario_asignado"]);
+                    tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
                 }
             }
             connection.Close();

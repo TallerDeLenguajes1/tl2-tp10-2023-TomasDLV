@@ -9,15 +9,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace tl2_tp10_2023_TomasDLV.ViewModels
 {
-   
-        public class ModificarTareaViewModel
-    {  
+
+    public class ModificarTareaViewModel
+    {
         [Required(ErrorMessage = "Este campo es requerido.")]
         [Display(Name = "ID")]
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Este campo es requerido.")]
-        [Display(Name = "ID Tablero")]
         public int IdTablero { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido.")]
@@ -28,7 +26,7 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
         [StringLength(50)]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
-        
+
         [StringLength(20)]
         [Display(Name = "Color")]
         public string Color { get; set; }
@@ -36,11 +34,14 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
         [Required(ErrorMessage = "Este campo es requerido.")]
         [Display(Name = "Estado")]
         public EstadoTarea Estado { get; set; }
-        
+
         [Display(Name = "ID Usuario asignado")]
         public int IdUsuarioAsignado { get; set; }
 
-        public ModificarTareaViewModel(Tarea tarea){
+        public List<Usuario> Usuarios { get; set; }
+
+        public ModificarTareaViewModel(Tarea tarea, List<Usuario> usuarios)
+        {
             this.Id = tarea.Id;
             this.IdTablero = tarea.IdTablero;
             this.Nombre = tarea.Nombre;
@@ -48,8 +49,9 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
             this.Color = tarea.Color;
             this.Estado = tarea.Estado;
             this.IdUsuarioAsignado = tarea.Id_usuario_asignado;
+            this.Usuarios = usuarios;
         }
-        public ModificarTareaViewModel(){}
+        public ModificarTareaViewModel() { }
     }
-    
+
 }

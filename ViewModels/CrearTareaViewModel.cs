@@ -36,17 +36,15 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
 
         public List<Usuario> Usuarios { get; set; }
 
-        public CrearTareaViewModel(Tarea tarea, List<Usuario> usuarios)
-        {
-            this.IdTablero = tarea.IdTablero;
-            this.Nombre = tarea.Nombre;
-            this.Descripcion = tarea.Descripcion;
-            this.Color = tarea.Color;
-            this.Estado = tarea.Estado;
-            this.IdUsuarioAsignado = tarea.Id_usuario_asignado;
-            this.Usuarios = usuarios;
-        }
-        public CrearTareaViewModel() { }
+        
+        public CrearTareaViewModel(int idBoard,List<Usuario> users) {
+            IdTablero = idBoard;
+            Usuarios = users;
+         }
+         public CrearTareaViewModel() {
+            
+         }
+
     }
 
 }
