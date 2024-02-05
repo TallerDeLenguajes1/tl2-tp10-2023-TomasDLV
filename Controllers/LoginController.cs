@@ -18,7 +18,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         private readonly ILogger<LoginController> _logger;
         private IUsuarioRepository _usuario;
 
-        public LoginController(ILogger<LoginController> logger,IUsuarioRepository usuarioRepository)
+        public LoginController(ILogger<LoginController> logger, IUsuarioRepository usuarioRepository)
         {
             _logger = logger;
             _usuario = usuarioRepository;
@@ -34,7 +34,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         {
             try
             {
-                if(!ModelState.IsValid) return RedirectToAction("Index");
+                if (!ModelState.IsValid) return RedirectToAction("Index");
                 var usuario = _usuario.GetAllUser().FirstOrDefault(u => u.Nombre_de_usuario == usuarioLogged.Nombre && u.Contrasenia == usuarioLogged.Contrasenia);
                 if (usuario == null)
                 {
@@ -43,7 +43,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
                 }
                 LoguearUsuario(usuario);
                 _logger.LogInformation("El usuario {0} ingreso correctamente", usuario.Nombre_de_usuario);
-                return RedirectToRoute(new{controller = "Home", action = "Index"});
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
             catch (System.Exception ex)
             {
@@ -53,7 +53,8 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             }
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public void LoguearUsuario(Usuario usuario){
+        public void LoguearUsuario(Usuario usuario)
+        {
             HttpContext.Session.SetInt32("id", usuario.Id);
             HttpContext.Session.SetString("usuario", usuario.Nombre_de_usuario);
             HttpContext.Session.SetInt32("rol", (int)usuario.Rol);
@@ -61,6 +62,23 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
         public IActionResult Error()
         {
             return View("Error!");
+        }
+
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear(); // Elimina todos los datos de sesión
+
+                // Redirige al usuario a la página de inicio o a donde desees
+                return RedirectToAction("Index", "Login");
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                return BadRequest();
+            }
         }
     }
 }

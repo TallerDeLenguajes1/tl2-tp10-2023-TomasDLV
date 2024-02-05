@@ -1,44 +1,36 @@
-
 @model tl2_tp10_2023_TomasDLV.ViewModels.ListarTablerosViewModel;
 @{
     ViewData["Title"] = "Index";
 }
 
+<h3>Boards</h3>
 
+<div class="row mb-4">
+    <div class="col-md-4 offset-md-4">
+        <a asp-controller="Tablero" asp-action="createBoard" class="text-decoration-none">
+            <div class="card bg-light text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Create new board</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 
-<h1>@ViewData["Title"]</h1>
-
-<table class="table table-light">
-    <thead>
-        <tr>
-            
-            <th style="text-align: center;">ID</th>
-            <th style="text-align: center;">ID USER OWNER</th>
-            <th style="text-align: center;">NOMBRE</th>
-            <th style="text-align: center;">DESCRIPCIÓN</th>
-            <td style="text-align: center;">ACCIONES</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var t in Model.tableros)
-        {
-            <tr>
-                <td style="text-align: center;">@t.Id</td>
-                <td style="text-align: center;">@t.IdUsuarioPropietario</td>
-                <td style="text-align: center;">@t.Nombre</td>
-                <td style="text-align: center;">@t.Descripcion</td>
-                <td style="text-align: center;">
-                    <div style="display: flex; justify-content: center; gap: 10px;">
-                        <a asp-controller="Tablero" asp-action="editBoard" asp-route-idBoard="@t.Id" class="btn btn-primary">Editar</a>
-                        <form asp-controller="Tablero" asp-action="removeBoard" method="post" onsubmit="return confirm('¿Estás seguro que quieres eliminar el usuario?')">
-                            <input type="hidden" name="id" value="@t.Id" />
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
+<div class="row justify-content-center">
+    @foreach (var t in Model.tableros)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@t.Nombre</h5>
+                    
+                    <div class="btn-group-vertical d-flex justify-content-center" role="group">
+                        <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id" class="btn btn-info mb-2">Ver</a>
+                        <a asp-controller="Tablero" asp-action="editBoard" asp-route-idBoard="@t.Id" class="btn btn-success">Editar</a>
                     </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
+                </div>
+            </div>
+        </div>
+    }
+</div>

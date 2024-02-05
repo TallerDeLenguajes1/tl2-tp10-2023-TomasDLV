@@ -15,7 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        if(!logueado()) return RedirectToRoute(new {controller = "Login", action = "Index"});
+        if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
         return View();
     }
 

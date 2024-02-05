@@ -10,19 +10,20 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
     {
         private readonly ILogger<TareaController> _logger;
         private ITareaRepository _tareaRepository;
-        
-        public TareaController(ILogger<TareaController> logger,ITareaRepository tareaRepository)
+
+        public TareaController(ILogger<TareaController> logger, ITareaRepository tareaRepository)
         {
             _logger = logger;
             _tareaRepository = tareaRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int idBoard)
         {
             try
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-                var tasks = _tareaRepository.GetAllTask();
+                var tasks = _tareaRepository.GetAllTaskByIdBoard(idBoard);
+
                 return View(new ListarTareasViewModel(tasks));
             }
             catch (System.Exception ex)
@@ -53,7 +54,7 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             try
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-                if(!ModelState.IsValid) return RedirectToAction("Index");
+                if (!ModelState.IsValid) return RedirectToAction("Index");
                 _tareaRepository.CreateTask(new Tarea(task));
                 return RedirectToAction("Index");
             }
@@ -78,10 +79,10 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             try
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-                if(!ModelState.IsValid) return RedirectToAction("Index");
-    
-                _tareaRepository.UpdateTask(tarea.Id,new Tarea(tarea));
-    
+                if (!ModelState.IsValid) return RedirectToAction("Index");
+
+                _tareaRepository.UpdateTask(tarea.Id, new Tarea(tarea));
+
                 return RedirectToAction("Index");
             }
             catch (System.Exception ex)

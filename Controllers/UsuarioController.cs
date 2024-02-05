@@ -148,6 +148,27 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             
 
         }
+        [HttpPost]
+public IActionResult Logout()
+{
+    try
+    {
+        if (logueado())
+        {
+            HttpContext.Session.Clear(); // Elimina todas las claves de la sesión
+
+            // Puedes agregar más lógica de limpieza si es necesario
+        }
+
+        return RedirectToAction("Index", "Home");
+    }
+    catch (System.Exception ex)
+    {
+        _logger.LogError(ex.ToString());
+        return RedirectToAction("Error");
+    }
+}
+
 
 
         private bool logueado()

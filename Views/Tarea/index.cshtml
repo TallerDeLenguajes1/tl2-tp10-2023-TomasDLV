@@ -1,50 +1,32 @@
-
-
 @model tl2_tp10_2023_TomasDLV.ViewModels.ListarTareasViewModel
 @{
     ViewData["Title"] = "Index";
+    
+    // Agrupar las tareas por estado
+    var tasksByState = Model.Tareas.GroupBy(t => t.Estado).ToDictionary(g => g.Key, g => g.ToList());
 }
-
-
 
 <h1>@ViewData["Title"]</h1>
 
-<table class="table table-light">
-    <thead>
-        <tr>
-            <th style="text-align: center;">Id</th>
-            <th style="text-align: center;">ID Tablero</th>
-            <th style="text-align: center;">NOMBRE</th>
-            <th style="text-align: center;">ESTADO</th>
-            <th style="text-align: center;">DESCRIPCION</th>
-            <th style="text-align: center;">COLOR</th>
-            <th style="text-align: center;">ID USUARIO ASIGNADO</th>
-            <th style="text-align: center;">ACCIONES</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var t in Model.Tareas)
-        {
-            <tr>
-                <td style="text-align: center;">@t.Id</td>
-                <td style="text-align: center;">@t.IdTablero</td>
-                <td style="text-align: center;">@t.Nombre</td>
-                <td style="text-align: center;">@t.Estado</td>
-                <td style="text-align: center;">@t.Descripcion</td>
-                <td style="text-align: center;">@t.Color</td>
-                <td style="text-align: center;">@t.Id_usuario_asignado</td>
-                <td style="text-align: center;">
-                    <div style="display: flex; justify-content: center; gap: 10px;">
-                        <a asp-controller="Tarea" asp-action="editTask" asp-route-id="@t.Id" class="btn btn-primary">Editar</a>
-                        <form asp-controller="Tarea" asp-action="removeTask" method="post" onsubmit="return confirm('¿Estás seguro que quieres eliminar el usuario?')">
-                            <input type="hidden" name="id" value="@t.Id" />
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
+<div class="row">
+    @foreach (var state in Enum.GetValues(typeof(tl2_tp09_2023_TomasDLV.Models.EstadoTarea)))
+    {
+        <div class="col">
+            <h2>@state</h2>
+            @if (tasksByState.ContainsKey((tl2_tp09_2023_TomasDLV.Models.EstadoTarea)state))
+            {
+                foreach (var task in tasksByState[(tl2_tp09_2023_TomasDLV.Models.EstadoTarea)state])
+                {
+                    <div class="card mb-3" style="background-color: @task.Color;">
+                        <div class="card-body">
+                            <h5 class="card-title">@task.Nombre</h5>
+                            <p class="card-text">@task.Descripcion</p>
+                            <!-- Botón de editar -->
+                            <a asp-controller="Tarea" asp-action="editTask" asp-route-id="@task.Id" class="btn btn-primary">Editar</a>
+                        </div>
                     </div>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
+                }
+            }
+        </div>
+    }
+</div>

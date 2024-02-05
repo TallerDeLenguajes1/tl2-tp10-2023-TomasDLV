@@ -17,5 +17,10 @@
    
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+    <form asp-controller="Tablero" asp-action="removeBoard" method="post"
+                            onsubmit="return confirm('¿Estás seguro que quieres eliminar el tablero?')">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
 </form>
 @section Scripts{<partial name="_ValidationScriptsPartial"/>}
