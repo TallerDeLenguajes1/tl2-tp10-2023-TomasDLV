@@ -10,10 +10,10 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
     {
         public List<Tablero> TablerosPropios  {get;set;}
         public List<Tablero> TablerosAjenos {get;set;}
-        public ListarTablerosViewModel(List<Tablero> tableros){
+        public ListarTablerosViewModel(List<Tablero> tablerosPropios,List<Tablero> tableroAjenos){
 
-            this.TablerosPropios = tableros.Where(t => t.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"));
-            this.TablerosAjenos = ;
+            this.TablerosPropios = tablerosPropios;
+            this.TablerosAjenos = tableroAjenos;
         }
     }
 }

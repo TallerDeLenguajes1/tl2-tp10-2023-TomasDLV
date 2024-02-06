@@ -16,6 +16,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
         public List<Tablero> GetAllBoard();
         public List<Tablero> GetAllBoardsByIdUser(int idUser);
         public Tablero GetByIdBoard(int idTablero);
+        public List<Tablero> GetAllBoardsHaveTask(int idUser);
         public void RemoveBoard(int id);
     }
 }

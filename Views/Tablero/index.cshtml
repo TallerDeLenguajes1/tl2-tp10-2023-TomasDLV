@@ -10,7 +10,7 @@
         <a asp-controller="Tablero" asp-action="createBoard" class="text-decoration-none">
             <div class="card bg-light text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Create new board</h5>
+                    <h5 class="card-title">Crear un Nuevo Tablero</h5>
                 </div>
             </div>
         </a>
@@ -19,7 +19,7 @@
 <h5>Tus Tableros</h5>
 <hr>
 <div class="row justify-content-center">
-    @foreach (var t in Model.tableros)
+    @foreach (var t in Model.TablerosPropios)
     {
         <div class="col-md-4 mb-4">
             <div class="card">
@@ -37,3 +37,20 @@
 </div>
 <h5>Tableros Ajenos</h5>
 <hr>
+<div class="row justify-content-center">
+@foreach (var t in Model.TablerosAjenos)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@t.Nombre</h5>
+                    
+                    <div class="btn-group-vertical d-flex justify-content-center" role="group">
+                        <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id" class="btn btn-info mb-2">Ver</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

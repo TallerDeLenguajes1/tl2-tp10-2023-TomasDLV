@@ -28,7 +28,8 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
                 var tasks = _tareaRepository.GetAllTaskByIdBoard(idBoard);
                 var board = _tableroRepository.GetByIdBoard(idBoard);
-                return View(new ListarTareasViewModel(tasks,board));
+                int idUser = (int)HttpContext.Session.GetInt32("id");
+                return View(new ListarTareasViewModel(tasks,board,idUser));
             }
             catch (System.Exception ex)
             {
@@ -59,8 +60,19 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
                 if (!ModelState.IsValid) return RedirectToAction("Index");
-                _tareaRepository.CreateTask(new Tarea(task));
+                
+                var tablero = _tableroRepository.GetByIdBoard(task.IdTablero);
+                if (esAdmin() || tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"))
+                {
+                    _tareaRepository.CreateTask(new Tarea(task));
                 return RedirectToAction("Index", "Tarea", new { idBoard = task.IdTablero });
+
+                
+                }else
+                {
+                    //Agregar error
+                    return RedirectToAction("Index", "Tarea", new { idBoard = task.IdTablero });
+                }
             }
             catch (System.Exception ex)
             {
@@ -76,6 +88,8 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             var task = _tareaRepository.GetTaskById(id);
             var users = _usuarioRepository.GetAllUser();
             return View(new ModificarTareaViewModel(task,users));
+
+            
         }
 
         [HttpPost]
@@ -86,8 +100,14 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
                 if (!ModelState.IsValid) return RedirectToAction("Index");
 
-                _tareaRepository.UpdateTask(tarea.Id, new Tarea(tarea));
+                var tablero = _tableroRepository.GetByIdBoard(tarea.IdTablero);
 
+                if (esAdmin() || tarea.IdUsuarioAsignado == (int)HttpContext.Session.GetInt32("id") || tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"))
+                {
+                    _tareaRepository.UpdateTask(tarea.Id, new Tarea(tarea));
+
+                
+                }
                 return RedirectToAction("Index", "Tarea", new { idBoard = tarea.IdTablero });
 
             }
@@ -106,8 +126,20 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
                 var task = _tareaRepository.GetTaskById(id);
                 var IdTab = task.IdTablero;
-                _tareaRepository.RemoveTask(id);
-                return RedirectToAction("Index", "Tarea", new { idBoard = IdTab });
+                var tablero = _tableroRepository.GetByIdBoard(IdTab);
+                
+                
+
+                if (esAdmin() || task.Id_usuario_asignado == (int)HttpContext.Session.GetInt32("id") || tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"))
+                {
+                    _tareaRepository.RemoveTask(id);
+
+                    return RedirectToAction("Index", "Tarea", new { idBoard = IdTab });
+                }
+                else
+                {
+                    return RedirectToRoute(new { controller = "Login", action = "Index" });
+                }
             }
             catch (System.Exception ex)
             {

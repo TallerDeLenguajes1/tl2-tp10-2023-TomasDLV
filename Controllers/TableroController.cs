@@ -31,19 +31,21 @@ namespace tl2_tp10_2023_TomasDLV.Controllers
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
 
-                var boards = new List<Tablero>();
-                var tasks = _tareaRepository.GetAllTask();;
+                var OwnBoards = new List<Tablero>();
+                var BoardsWithTask = new List<Tablero>();
+                var tasks = _tareaRepository.GetAllTask();
                 if (esAdmin())
                 {
-                    boards = _tableroRepository.GetAllBoard();
+                    OwnBoards = _tableroRepository.GetAllBoard();
                 }
                 else
                 {
-                    boards = _tableroRepository.GetAllBoardsByIdUser((int)HttpContext.Session.GetInt32("id"));
+                    OwnBoards = _tableroRepository.GetAllBoardsByIdUser((int)HttpContext.Session.GetInt32("id"));
+                    BoardsWithTask = _tableroRepository.GetAllBoardsHaveTask((int)HttpContext.Session.GetInt32("id"));
                 }
 
 
-                return View(new ListarTablerosViewModel(boards));
+                return View(new ListarTablerosViewModel(OwnBoards,BoardsWithTask));
             }
             catch (System.Exception ex)
             {

@@ -10,9 +10,11 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
     {
         public List<Tarea> Tareas {get;set;}
         public Tablero TableroInfo {get;set;}
-        public ListarTareasViewModel(List<Tarea> listaTareas,Tablero tablero){
+        public int IdUser{get;set;}
+        public ListarTareasViewModel(List<Tarea> listaTareas,Tablero tablero,int idUser){
             Tareas = listaTareas;
             TableroInfo = tablero;
+            IdUser = idUser;
         }
     }
 }

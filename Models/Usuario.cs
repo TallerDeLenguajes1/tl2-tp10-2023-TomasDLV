@@ -8,8 +8,9 @@ namespace tl2_tp09_2023_TomasDLV.Models
 {
     public enum NivelAcceso
     {
-        administrador = 1,
-        operador = 2
+        operador = 0,
+        administrador = 1
+        
     }
     public class Usuario
     {
