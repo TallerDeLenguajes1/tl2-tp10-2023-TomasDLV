@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\tl2-tp10-2023-TomasDLV.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\wwwroot\\Assets\\img\\Logo.png",
+      "PackagePath": "staticwebassets\\Assets\\img\\Logo.png"
+    },
+    {
       "Id": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -5,45 +5,52 @@
     // Agrupar las tareas por estado
     var tasksByState = Model.Tareas.GroupBy(t => t.Estado).ToDictionary(g => g.Key, g => g.ToList());
 }
-@if(Model.IdUser == Model.TableroInfo.IdUsuarioPropietario){
-    <div class="row">
-    <div class="col-md-12">
-        <h2>@Model.TableroInfo.Nombre</h2>
-        <p>@Model.TableroInfo.Descripcion</p>
-        <!-- Botón para añadir tarea -->
-        <div class="d-flex justify-content-center">
-            <a asp-controller="Tarea" asp-action="createTask" asp-route-idBoard="@Model.TableroInfo.Id"
-                class="btn btn-success btn-sm">Agregar tarea</a>
-        </div>
-    </div>
-</div>
-}
 
-
-<div class="row">
-    @foreach (var state in Enum.GetValues(typeof(tl2_tp09_2023_TomasDLV.Models.EstadoTarea)))
+<div class="container-fluid vh-100"> <!-- Eliminamos la clase d-flex flex-column -->
+    @if (Model.IdUser == Model.TableroInfo.IdUsuarioPropietario)
     {
-        <div class="col">
-            <h2>@state</h2>
-            @if (tasksByState.ContainsKey((tl2_tp09_2023_TomasDLV.Models.EstadoTarea)state))
-            {
-                foreach (var task in tasksByState[(tl2_tp09_2023_TomasDLV.Models.EstadoTarea)state])
-                {
-                    <div class="card mb-3" style="background-color: @task.Color;">
-                        <div class="card-body">
-                            <h5 class="card-title">@task.Nombre</h5>
-                            <p class="card-text">@task.Descripcion</p>
-                            @if ((task.Id_usuario_asignado == Model.IdUser) || (Model.TableroInfo.IdUsuarioPropietario == Model.IdUser))
-                            {
-                                <!-- Botón de editar -->
-                                <a asp-controller="Tarea" asp-action="editTask" asp-route-id="@task.Id"
-                                class="btn btn-primary btn-sm">Editar</a>
-                            }
-
-                        </div>
-                    </div>
-                }
-            }
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <h2>@Model.TableroInfo.Nombre</h2>
+                <p>@Model.TableroInfo.Descripcion</p>
+                <!-- Botón para añadir tarea -->
+                <div class="d-flex justify-content-center">
+                    <a asp-controller="Tarea" asp-action="createTask" asp-route-idBoard="@Model.TableroInfo.Id"
+                        class="btn btn-pink btn-sm">Agregar tarea</a>
+                </div>
+            </div>
         </div>
     }
+
+    <div class="row flex-grow-1">
+        @foreach (var state in Enum.GetValues(typeof(tl2_tp09_2023_TomasDLV.Models.EstadoTarea)))
+        {
+            <div class="col">
+                <div class="state-column p-3" style="background-color: #80008049; border-radius: 10px; height: 100%;"> <!-- Agregamos height: 100% -->
+                    <h2 class="font-weight-bold">@state</h2>
+                    @if (tasksByState.ContainsKey((tl2_tp09_2023_TomasDLV.Models.EstadoTarea)state))
+                    {
+                        foreach (var task in tasksByState[(tl2_tp09_2023_TomasDLV.Models.EstadoTarea)state])
+                        {
+                            <div class="card mb-3" style="border-left: 8px solid @task.Color;">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="card-title">@task.Nombre</h5>
+                                        <p class="card-text">Asignado a: @task.Id_usuario_asignado</p>
+                                    </div>
+                                    <div>
+                                        @if ((task.Id_usuario_asignado == Model.IdUser) || (Model.TableroInfo.IdUsuarioPropietario == Model.IdUser))
+                                        {
+                                            <!-- Botón de editar -->
+                                            <a asp-controller="Tarea" asp-action="editTask" asp-route-id="@task.Id" class="btn btn-primary btn-sm">Editar</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
 </div>

@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -9,6 +8,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/tl2_tp10_2023_TomasDLV.styles.css" asp-append-version="true" />
+    <style>
+        
+    </style>
 </head>
 
 <body>
@@ -18,27 +20,17 @@
             <div class="container-fluid">
                 <!-- Logo y "Boards" a la izquierda -->
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="ruta/al/logo.png" height="30" alt="Logo">
-
-
-
-
+                    <img src="~/assets/img/logo.png" height="50" alt="Logo">
                 </a>
-                <a asp-controller="Tablero" asp-action="Index">Tableros</a>
+                <a class="nav-link" asp-controller="Tablero" asp-action="Index" style="color: white; font-weight: bold;">Tableros</a>
                 <!-- Opciones "Login", "Sign up" y "Logout" a la derecha -->
                 <div class="d-flex align-items-center ms-auto">
-
                     <form method="post" asp-controller="Login" asp-action="Logout" class="me-3">
-                        <button type="submit" class="btn btn-link nav-link">Cerrar Sesión</button>
+                        <button type="submit" class="btn btn-link nav-link" style="color: white; font-weight: bold;">Cerrar Sesión</button>
                     </form>
-
-
                 </div>
             </div>
         </nav>
-
-
-
 
     </header>
     <div class="container">
@@ -47,9 +39,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - tl2_tp10_2023_TomasDLV - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer">
+        <div class="container" style="color: white;">
+            &copy; Copyright 2023 - TomasDLV
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

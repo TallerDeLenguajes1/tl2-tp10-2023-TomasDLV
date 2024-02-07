@@ -1,57 +1,76 @@
 @model tl2_tp10_2023_TomasDLV.ViewModels.ModificarTareaViewModel
+@{
+    ViewData["Title"] = "Editar Tarea";
+}
 
-<form asp-controller="Tarea" asp-action="editTask" method="post">
-    
-    <input type="hidden" asp-for="@Model.Id" />
-    <input hidden asp-for="@Model.IdTablero" class="form-control" id="nombre" />
-    
-    <div class="mb-3">
-        <label class="form-label" asp-for="@Model.Nombre"> </label>
-        <input asp-for="@Model.Nombre" class="form-control" />
-        <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card rounded shadow-sm" style="background: linear-gradient(to right, #800080, #FF69B4);">
+                <div class="card-body">
+                    <h1 class="text-center mb-4" style="color: white;">@ViewData["Title"]</h1>
+
+                    <form asp-controller="Tarea" asp-action="editTask" method="post">
+
+                        <input type="hidden" asp-for="@Model.Id" />
+                        <input hidden asp-for="@Model.IdTablero" class="form-control" id="nombre" />
+
+                        <div class="form-group">
+                            <label for="nombre" style="color: white;">Nombre:</label>
+                            <input asp-for="@Model.Nombre" class="form-control" id="nombre" />
+                            <span asp-validation-for="@Model.Nombre" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estado" style="color: white;">Estado:</label>
+                            <select asp-for="@Model.Estado" class="form-control" id="estado">
+                                <option value="Ideas">Ideas</option>
+                                <option value="Pendientes">Pendientes</option>
+                                <option value="EnProceso">EnProceso</option>
+                                <option value="Revisar">Revisar</option>
+                                <option value="Terminado">Done</option>
+                            </select>
+                            <span asp-validation-for="@Model.Estado" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion" style="color: white;">Descripción:</label>
+                            <input asp-for="@Model.Descripcion" class="form-control" id="descripcion" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="colorPicker" style="color: white;">Color:</label>
+                            <input type="color" id="colorPicker" name="Color" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idUsuarioAsignado" style="color: white;">Usuario Asignado:</label>
+                            <select asp-for="@Model.IdUsuarioAsignado" class="form-control" id="idUsuarioAsignado">
+                                @foreach (var user in Model.Usuarios)
+                                {
+                                    <option value="@user.Id">@user.Nombre_de_usuario</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.IdUsuarioAsignado" class="text-danger"></span>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                style="background-color: #800080;">Guardar Cambios</button>
+                        </div>
+                    </form>
+
+                    <form asp-controller="Tarea" asp-action="removeTask" method="post"
+                        onsubmit="return confirm('¿Estás seguro que quieres eliminar la Tarea?')">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="@Model.Estado"></label>
-        <select asp-for="@Model.Estado" class="form-control" id="estado">
-            <option value="Ideas">Ideas</option>
-            <option value="Pendientes">Pendientes</option>
-            <option value="EnProceso">EnProceso</option>
-            <option value="Revisar">Revisar</option>
-            <option value="Terminado">Done</option>
-        </select>
-        <span asp-validation-for="@Model.Estado" class="text-danger"></span>
-    </div>
+</div>
 
-    <div class="mb-3">
-        <label class="form-label" asp-for="@Model.Descripcion"> </label>
-        <input asp-for="@Model.Descripcion" class="form-control" />
-    </div>
-    <div class="mb-3">
-        <label class="form-label" asp-for="@Model.Color"> </label>
-        <input asp-for="@Model.Color" class="form-control" />
-
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.IdUsuarioAsignado">Usuario Asignado</label>
-        <select asp-for="@Model.IdUsuarioAsignado" class="form-control" id="idUsuarioAsignado">
-            @foreach (var user in Model.Usuarios)
-            {
-                <option value="@user.Id">@user.Nombre_de_usuario</option>
-            }
-        </select>
-        <span asp-validation-for="@Model.IdUsuarioAsignado" class="text-danger"></span>
-    </div>
-
-
-
-    <button class="btn btn-primary" type="submit">Guardar Cambios</button>
-    
-</form>
-<form asp-controller="Tarea" asp-action="removeTask" method="post"
-        onsubmit="return confirm('¿Estás seguro que quieres eliminar la Tarea?')">
-        <input type="hidden" name="id" value="@Model.Id" />
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-    </form>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

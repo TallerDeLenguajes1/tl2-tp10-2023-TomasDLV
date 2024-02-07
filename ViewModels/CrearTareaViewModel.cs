@@ -23,7 +23,7 @@ namespace tl2_tp10_2023_TomasDLV.ViewModels
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
-        [StringLength(20)]
+        [StringLength(7)]
         [Display(Name = "Color")]
         public string Color { get; set; }
 

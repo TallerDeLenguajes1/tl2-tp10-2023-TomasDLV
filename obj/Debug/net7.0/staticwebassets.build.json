@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "m7ZK64jyE7+Ez0lkagN7+Zk9b5ZRviTBC3jcuZXDgqw=",
+  "Hash": "OMEIyR5RIFVykeNP58Z6jb3tTkgpAsowx70sSjg+jjU=",
   "Source": "tl2-tp10-2023-TomasDLV",
   "BasePath": "_content/tl2-tp10-2023-TomasDLV",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\tl2-tp10-2023-TomasDLV.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\wwwroot\\Assets\\img\\Logo.png",
+      "SourceId": "tl2-tp10-2023-TomasDLV",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\wwwroot\\",
+      "BasePath": "_content/tl2-tp10-2023-TomasDLV",
+      "RelativePath": "Assets/img/Logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Assets\\img\\Logo.png"
     },
     {
       "Identity": "C:\\Users\\tomas\\OneDrive\\Desktop\\3er año\\Repositorio Taller2\\tl2-tp10-2023-TomasDLV\\wwwroot\\css\\site.css",

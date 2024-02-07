@@ -74,7 +74,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                     tarea.Nombre = reader["nombre"].ToString();
                     tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]);
                     tarea.Descripcion = reader["descripcion"].ToString();
-                    tarea.Descripcion = reader["color"].ToString();
+                    tarea.Color = reader["color"].ToString();
                     tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
                 }
             }
@@ -140,7 +140,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                         tarea.Nombre = reader["nombre"].ToString();
                         tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]);
                         tarea.Descripcion = reader["descripcion"].ToString();
-                        tarea.Descripcion = reader["color"].ToString();
+                        tarea.Color = reader["color"].ToString();
                         tarea.IdTablero = Convert.ToInt32(reader["id_usuario_asignado"]);
                         tareas.Add(tarea);
 
@@ -172,7 +172,7 @@ namespace tl2_tp09_2023_TomasDLV.Repositorios
                         tarea.Nombre = reader["nombre"].ToString();
                         tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]);
                         tarea.Descripcion = reader["descripcion"].ToString();
-                        tarea.Descripcion = reader["color"].ToString();
+                        tarea.Color = reader["color"].ToString();
                         tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
                         tareas.Add(tarea);
                     }
