@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using tl2_tp10_2023_TomasDLV.Models;
+using tl2_proyecto_TomasDLV.Models;
 
-namespace tl2_tp10_2023_TomasDLV.Controllers;
+namespace tl2_proyecto_TomasDLV.Controllers;
 
 public class HomeController : Controller
 {

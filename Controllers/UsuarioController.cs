@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using tl2_tp09_2023_TomasDLV.Models;
-using tl2_tp09_2023_TomasDLV.Repositorios;
-using tl2_tp10_2023_TomasDLV.ViewModels;
+using tl2_proyecto_TomasDLV.Models;
+using tl2_proyecto_TomasDLV.Repositorios;
+using tl2_proyecto_TomasDLV.ViewModels;
 
 
-namespace tl2_tp10_2023_TomasDLV.Controllers
+namespace tl2_proyecto_TomasDLV.Controllers
 {
 
     public class UsuarioController : Controller

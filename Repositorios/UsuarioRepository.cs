@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data.SQLite;
-using tl2_tp09_2023_TomasDLV.Models;
+using tl2_proyecto_TomasDLV.Models;
 using Microsoft.AspNetCore.Identity;
-using tl2_tp10_2023_TomasDLV.ViewModels;
+using tl2_proyecto_TomasDLV.ViewModels;
 
-namespace tl2_tp09_2023_TomasDLV.Repositorios
+namespace tl2_proyecto_TomasDLV.Repositorios
 {
     public class UsuarioRepository : IUsuarioRepository
     {

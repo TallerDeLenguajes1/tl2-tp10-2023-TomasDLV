@@ -1,4 +1,4 @@
-namespace tl2_tp10_2023_TomasDLV.Models;
+namespace tl2_proyecto_TomasDLV.Models;
 
 public class ErrorViewModel
 {

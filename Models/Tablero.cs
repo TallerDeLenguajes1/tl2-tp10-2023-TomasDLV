@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using tl2_tp10_2023_TomasDLV.ViewModels;
-namespace tl2_tp09_2023_TomasDLV.Models
+using tl2_proyecto_TomasDLV.ViewModels;
+namespace tl2_proyecto_TomasDLV.Models
 {
     public class Tablero
     {

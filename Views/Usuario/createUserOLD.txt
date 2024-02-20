@@ -1,6 +1,6 @@
 
 
-@model tl2_tp10_2023_TomasDLV.ViewModels.CrearUsuarioViewModel;
+@model tl2_proyecto_TomasDLV.ViewModels.CrearUsuarioViewModel;
 @{ 
     ViewData["Title"] = "Crear Usuario";
 }
