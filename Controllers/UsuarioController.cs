@@ -111,7 +111,7 @@ namespace tl2_proyecto_TomasDLV.Controllers
                 if(!ModelState.IsValid) return RedirectToAction("Index");
                 _usuario.UpdateUser(usuario.Id, new Usuario(usuario));
     
-                return RedirectToAction("Index");
+                return RedirectToRoute(new { controller = "Home", action = "Index" });
             }
             catch (System.Exception ex)
             {

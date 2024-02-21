@@ -1,5 +1,5 @@
 ﻿@{
-    
+
     var userCheck = Context.Items["UserCheck"] as UserCheck;
 
 }
@@ -38,8 +38,17 @@
                     <a class="nav-link" asp-controller="Usuario" asp-action="Index"
                         style="color: white; font-weight: bold;">Gestion Usuarios</a>
                 }
-                <!-- Opciones "Login", "Sign up" y "Logout" a la derecha -->
                 <div class="d-flex align-items-center ms-auto">
+                    <!-- Nombre de usuario como enlace -->
+                    <a asp-controller="Usuario" asp-action="editUser" asp-route-id="@userCheck.LoggedUserId()"class="nav-link"
+                        style="color: white; font-weight: bold;">
+                        @userCheck.LoggedUserName()
+                    </a>
+
+                    <!-- Barra separadora -->
+                    <span style="color: white;">|</span>
+
+                    <!-- Botón de cerrar sesión -->
                     <form method="post" asp-controller="Login" asp-action="Logout" class="me-3">
                         <button type="submit" class="btn btn-link nav-link"
                             style="color: white; font-weight: bold;">Cerrar Sesión</button>

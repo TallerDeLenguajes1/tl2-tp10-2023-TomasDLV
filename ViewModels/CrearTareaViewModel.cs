@@ -15,11 +15,11 @@ namespace tl2_proyecto_TomasDLV.ViewModels
         public int IdTablero { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido.")]
-        [StringLength(30)]
+        [StringLength(60)]
         [Display(Name = "Nombre de la tarea")]
         public string Nombre { get; set; }
 
-        [StringLength(50)]
+        [StringLength(150)]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 

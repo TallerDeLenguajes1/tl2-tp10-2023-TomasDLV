@@ -1,7 +1,10 @@
 @model tl2_proyecto_TomasDLV.ViewModels.ListarTablerosViewModel;
 @{
     ViewData["Title"] = "Index";
+    var userCheck = Context.Items["UserCheck"] as UserCheck;
+
 }
+@using tl2_proyecto_TomasDLV.Repositorios;
 
 <h3>Tableros</h3>
 
@@ -16,41 +19,71 @@
         </a>
     </div>
 </div>
-<h5>Tus Tableros</h5>
-<hr>
-<div class="row justify-content-center">
-    @foreach (var t in Model.TablerosPropios)
+@if (userCheck.IsAdmin())
 {
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">@t.Nombre</h5>
-                
-                <div class="btn-group-vertical d-flex justify-content-center" role="group">
-                    <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id" class="btn btn-ver mb-2">Ver</a>
-                    <a asp-controller="Tablero" asp-action="editBoard" asp-route-idBoard="@t.Id" class="btn btn-editar">Editar</a>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-</div>
-<h5>Tableros Ajenos</h5>
-<hr>
-<div class="row justify-content-center">
-@foreach (var t in Model.TablerosAjenos)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@t.Nombre</h5>
-                    
-                    <div class="btn-group-vertical d-flex justify-content-center" role="group">
-                        <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id" class="btn btn-ver mb-2">Ver</a>
-                        
+    <h5>Todos los Tableros</h5>
+    <hr>
+    <div class="row justify-content-center">
+        @foreach (var t in Model.TablerosPropios)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@t.Nombre</h5>
+
+                        <div class="btn-group-vertical d-flex justify-content-center" role="group">
+                            <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id"
+                                class="btn btn-ver mb-2">Ver</a>
+                            <a asp-controller="Tablero" asp-action="editBoard" asp-route-idBoard="@t.Id"
+                                class="btn btn-editar">Editar</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <h5>Tus Tableros</h5>
+    <hr>
+    <div class="row justify-content-center">
+        @foreach (var t in Model.TablerosPropios)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@t.Nombre</h5>
+
+                        <div class="btn-group-vertical d-flex justify-content-center" role="group">
+                            <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id"
+                                class="btn btn-ver mb-2">Ver</a>
+                            <a asp-controller="Tablero" asp-action="editBoard" asp-route-idBoard="@t.Id"
+                                class="btn btn-editar">Editar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <h5>Tableros Ajenos</h5>
+    <hr>
+    <div class="row justify-content-center">
+        @foreach (var t in Model.TablerosAjenos)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@t.Nombre</h5>
+
+                        <div class="btn-group-vertical d-flex justify-content-center" role="group">
+                            <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id"
+                                class="btn btn-ver mb-2">Ver</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

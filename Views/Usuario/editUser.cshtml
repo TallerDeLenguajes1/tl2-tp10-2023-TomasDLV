@@ -1,4 +1,10 @@
 @model tl2_proyecto_TomasDLV.ViewModels.ModificarUsuarioViewModel;
+@{
+
+    var userCheck = Context.Items["UserCheck"] as UserCheck;
+
+}
+@using tl2_proyecto_TomasDLV.Repositorios;
 
 <form asp-controller="Usuario" asp-action="editUser" method="post">
     <input type="hidden" asp-for="@Model.Id" />
@@ -13,13 +19,21 @@
         <input asp-for="@Model.Contrasenia" class="form-control"  />
         <span asp-validation-for="@Model.Contrasenia" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="@Model.Rol"></label>
-        <select asp-for="@Model.Rol" class="form-control" >
-            <option value="1">Administrador</option>
-            <option value="2">Operador</option>
-        </select>
-    </div>
+    
+    @if(userCheck.IsAdmin())
+    {
+        <div class="form-group">
+            <label asp-for="@Model.Rol"></label>
+            <select asp-for="@Model.Rol" class="form-control">
+                <option value="1" selected>Administrador</option>
+                <option value="2">Operador</option>
+            </select>
+        </div>
+    }
+    else
+    {
+        <input type="hidden" asp-for="@Model.Rol" /> <!-- Mantenemos el rol existente -->
+    }
 
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>

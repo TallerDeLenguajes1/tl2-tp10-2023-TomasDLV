@@ -15,19 +15,19 @@ namespace tl2_proyecto_TomasDLV.ViewModels
         [Required(ErrorMessage = "Este campo es requerido.")]
         [Display(Name = "ID")]
         public int Id { get; set; }
-
+        public int IdBoardsOwner { get; set; }
         public int IdTablero { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido.")]
-        [StringLength(30)]
+        [StringLength(60)]
         [Display(Name = "Nombre de la tarea")]
         public string Nombre { get; set; }
 
-        [StringLength(50)]
+        [StringLength(150)]
         [Display(Name = "Descripción")]
         public string Descripcion { get; set; }
 
-        [StringLength(20)]
+        [StringLength(7)]
         [Display(Name = "Color")]
         public string Color { get; set; }
 
@@ -40,7 +40,7 @@ namespace tl2_proyecto_TomasDLV.ViewModels
 
         public List<Usuario> Usuarios { get; set; }
 
-        public ModificarTareaViewModel(Tarea tarea, List<Usuario> usuarios)
+        public ModificarTareaViewModel(Tarea tarea, List<Usuario> usuarios,int idBoardsOwner)
         {
             this.Id = tarea.Id;
             this.IdTablero = tarea.IdTablero;
@@ -50,6 +50,7 @@ namespace tl2_proyecto_TomasDLV.ViewModels
             this.Estado = tarea.Estado;
             this.IdUsuarioAsignado = tarea.Id_usuario_asignado;
             this.Usuarios = usuarios;
+            this.IdBoardsOwner = idBoardsOwner;
         }
         public ModificarTareaViewModel() { }
     }

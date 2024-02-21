@@ -7,15 +7,16 @@ namespace tl2_proyecto_TomasDLV.Repositorios;
 
     public class UserCheck
     {
-        private IHttpContextAccessor accessor;
-
-        public UserCheck(IHttpContextAccessor accessor)
+        public IHttpContextAccessor accessor;
+        public int Id {get;set;}
+        public UserCheck(IHttpContextAccessor Accessor)
         {
-            this.accessor = accessor;
+            this.accessor = Accessor;
+            
         }
 
         public bool IsAdmin() => accessor.HttpContext.Session.GetInt32("rol") == 1;
         public bool NotLogged() => string.IsNullOrEmpty(accessor.HttpContext.Session.GetString("usuario"));
-        public int LoggedUserId() => Convert.ToInt32(accessor.HttpContext.Session.GetString("id"));
+        public int? LoggedUserId() => accessor.HttpContext.Session.GetInt32("id");
         public string LoggedUserName() => accessor.HttpContext.Session.GetString("usuario");
     }

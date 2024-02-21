@@ -33,7 +33,8 @@
 
                         <div class="form-group">
                             <label for="descripcion" style="color: white;">Descripción:</label>
-                            <input asp-for="@Model.Descripcion" class="form-control" id="descripcion" />
+                            <textarea class="form-control" id="descripcion" oninput="autoResize(this)"
+                                asp-for="@Model.Descripcion"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -66,4 +67,10 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        function autoResize(textarea) {
+            textarea.style.height = 'auto'; // Restablece la altura a automático para que se ajuste al contenido
+            textarea.style.height = textarea.scrollHeight + 'px'; // Establece la altura según el contenido
+        }
+    </script>
 }
