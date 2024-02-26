@@ -26,12 +26,14 @@ namespace tl2_proyecto_TomasDLV.ViewModels
         [StringLength(50)]
         [Display(Name = "Descripcion")]
         public string Descripcion { get; set; }
+        public List<Usuario> Usuarios {get; set;}
         public ModificarTableroViewModel(){}
-        public ModificarTableroViewModel(Tablero tablero){
+        public ModificarTableroViewModel(Tablero tablero,List<Usuario> usuarios){
             this.Id = tablero.Id;
             this.IdUsuarioPropietario = tablero.IdUsuarioPropietario;
             this.Nombre = tablero.Nombre;
             this.Descripcion = tablero.Descripcion;
+            this.Usuarios =usuarios;
         }
 
     }

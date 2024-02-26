@@ -26,11 +26,12 @@
     <div class="row justify-content-center">
         @foreach (var t in Model.TablerosPropios)
         {
+            var UserOwner = Model.Usuarios.FirstOrDefault(u => u.Id == t.IdUsuarioPropietario);
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@t.Nombre</h5>
-
+                        <p class="card-text">Propietario: @(UserOwner != null ? UserOwner.Nombre_de_usuario : "Sin Propietario")</p>
                         <div class="btn-group-vertical d-flex justify-content-center" role="group">
                             <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id"
                                 class="btn btn-ver mb-2">Ver</a>
@@ -54,7 +55,7 @@ else
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@t.Nombre</h5>
-
+                        
                         <div class="btn-group-vertical d-flex justify-content-center" role="group">
                             <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id"
                                 class="btn btn-ver mb-2">Ver</a>
@@ -71,11 +72,12 @@ else
     <div class="row justify-content-center">
         @foreach (var t in Model.TablerosAjenos)
         {
+            var UserOwner = Model.Usuarios.FirstOrDefault(u => u.Id == t.IdUsuarioPropietario);
             <div class="col-md-4 mb-4">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@t.Nombre</h5>
-
+                        <p class="card-text">Propietario: @(UserOwner != null ? UserOwner.Nombre_de_usuario : "Sin Propietario")</p>
                         <div class="btn-group-vertical d-flex justify-content-center" role="group">
                             <a asp-controller="Tarea" asp-action="Index" asp-route-idBoard="@t.Id"
                                 class="btn btn-ver mb-2">Ver</a>

@@ -31,7 +31,7 @@ namespace tl2_proyecto_TomasDLV.Models
 
         public string Descripcion { get => descripcion; set => descripcion = value; }
         public string Color { get => color; set => color = value; }
-        public int Id_usuario_asignado { get => id_usuario_asignado; set => id_usuario_asignado = value; }
+        public int Id_usuario_asignado { get => id_usuario_asignado; set => id_usuario_asignado = (int)value; }
         public EstadoTarea Estado { get => estado; set => estado = value; }
 
         

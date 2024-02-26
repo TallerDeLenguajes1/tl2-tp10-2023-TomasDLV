@@ -10,7 +10,8 @@ namespace tl2_proyecto_TomasDLV.Repositorios
     public class TareaRepository : ITareaRepository
     {
         private string cadenaConexion;
-        public TareaRepository(string CadenaConexion){
+        public TareaRepository(string CadenaConexion)
+        {
             cadenaConexion = CadenaConexion;
         }
         public void CreateTask(Tarea tarea)
@@ -135,13 +136,13 @@ namespace tl2_proyecto_TomasDLV.Repositorios
                     {
                         var tarea = new Tarea();
 
-                        tarea.Id_usuario_asignado = Convert.ToInt32(reader["id"]);
+                        tarea.Id = Convert.ToInt32(reader["id"]);
                         tarea.IdTablero = Convert.ToInt32(reader["id_tablero"]);
                         tarea.Nombre = reader["nombre"].ToString();
                         tarea.Estado = (EstadoTarea)Convert.ToInt32(reader["estado"]);
                         tarea.Descripcion = reader["descripcion"].ToString();
                         tarea.Color = reader["color"].ToString();
-                        tarea.IdTablero = Convert.ToInt32(reader["id_usuario_asignado"]);
+                        tarea.Id_usuario_asignado = Convert.ToInt32(reader["id_usuario_asignado"]);
                         tareas.Add(tarea);
 
                     }
@@ -196,20 +197,22 @@ namespace tl2_proyecto_TomasDLV.Repositorios
         }
         public void AssignTask(int idUsuario, int idTarea)
         {
-            var query = $"UPDATE Tarea SET (id_usuario_asignado) VALUES (@id_usuario_asignado) WHERE id='{idTarea}'";
+            var query = "UPDATE Tarea SET id_usuario_asignado = @id_usuario_asignado WHERE id = @idTarea";
 
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
                 var command = new SQLiteCommand(query, connection);
 
                 command.Parameters.Add(new SQLiteParameter("@id_usuario_asignado", idUsuario));
+                command.Parameters.Add(new SQLiteParameter("@idTarea", idTarea));
 
                 connection.Open();
                 var filas = command.ExecuteNonQuery();
 
                 connection.Close();
-                if(filas == 0) throw new Exception("Hubo un problema al asignar un usuario a la tarea");
+                if (filas == 0) throw new Exception("Hubo un problema al asignar un usuario a la tarea");
             }
         }
+
     }
 }

@@ -16,13 +16,15 @@ namespace tl2_proyecto_TomasDLV.Controllers
         private readonly ILogger<TableroController> _logger;
         private readonly ITableroRepository _tableroRepository;
         private readonly ITareaRepository _tareaRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
 
-        public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository,ITareaRepository tareaRepository)
+        public TableroController(ILogger<TableroController> logger, ITableroRepository tableroRepository,ITareaRepository tareaRepository,IUsuarioRepository usuarioRepository)
         {
             _logger = logger;
             _tableroRepository = tableroRepository;
             _tareaRepository = tareaRepository;
+            _usuarioRepository = usuarioRepository;
         }
         public IActionResult Index()
         {
@@ -32,7 +34,9 @@ namespace tl2_proyecto_TomasDLV.Controllers
 
                 var OwnBoards = new List<Tablero>();
                 var BoardsWithTask = new List<Tablero>();
-                var tasks = _tareaRepository.GetAllTask();
+                var Users = _usuarioRepository.GetAllUser();
+                
+                
                 if (esAdmin())
                 {
                     OwnBoards = _tableroRepository.GetAllBoard();
@@ -44,7 +48,7 @@ namespace tl2_proyecto_TomasDLV.Controllers
                 }
 
 
-                return View(new ListarTablerosViewModel(OwnBoards,BoardsWithTask));
+                return View(new ListarTablerosViewModel(OwnBoards,BoardsWithTask,Users));
             }
             catch (System.Exception ex)
             {
@@ -88,9 +92,11 @@ namespace tl2_proyecto_TomasDLV.Controllers
         [HttpGet]
         public IActionResult editBoard(int idBoard)
         {
+            
             if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
             var board = _tableroRepository.GetByIdBoard(idBoard);
-            return View(new ModificarTableroViewModel(board));
+            var users = _usuarioRepository.GetAllUser();
+            return View(new ModificarTableroViewModel(board,users));
 
         }
 
@@ -127,7 +133,7 @@ namespace tl2_proyecto_TomasDLV.Controllers
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
 
-                if (esAdmin() || (_tableroRepository.GetByIdBoard(id).IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id")))
+                if (esAdmin())
                 {
                     _tableroRepository.RemoveBoard(id);
 
@@ -135,6 +141,13 @@ namespace tl2_proyecto_TomasDLV.Controllers
                 }
                 else
                 {
+                    if (_tableroRepository.GetByIdBoard(id).IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"))
+                    {
+                        var tablero = _tableroRepository.GetByIdBoard(id);
+                        tablero.IdUsuarioPropietario = -1;
+                        _tableroRepository.UpdateBoard(id,tablero);
+                        return RedirectToAction("Index");
+                    }
                     return RedirectToRoute(new { controller = "Login", action = "Index" });
                 }
             }

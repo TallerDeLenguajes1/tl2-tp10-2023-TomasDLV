@@ -35,7 +35,7 @@ namespace tl2_proyecto_TomasDLV.Repositorios
         }
         public void UpdateBoard(int id, Tablero tablero)
         {
-            var query = $"UPDATE Tablero SET nombre = @nombre,descripcion = @descripcion WHERE id = {id};";
+            var query = $"UPDATE Tablero SET nombre = @nombre,descripcion = @descripcion,id_usuario_propietario = @idPropietario WHERE id = {id};";
 
             using (SQLiteConnection connection = new SQLiteConnection(cadenaConexion))
             {
@@ -43,6 +43,7 @@ namespace tl2_proyecto_TomasDLV.Repositorios
 
                 command.Parameters.Add(new SQLiteParameter("@nombre", tablero.Nombre));
                 command.Parameters.Add(new SQLiteParameter("@descripcion", tablero.Descripcion));
+                command.Parameters.Add(new SQLiteParameter("@idPropietario", tablero.IdUsuarioPropietario));
 
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -50,6 +51,7 @@ namespace tl2_proyecto_TomasDLV.Repositorios
                 connection.Close();
             }
         }
+        
         public Tablero GetByIdBoard(int idTablero)
         {
             SQLiteConnection connection = new SQLiteConnection(cadenaConexion);

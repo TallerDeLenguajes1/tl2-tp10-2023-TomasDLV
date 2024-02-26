@@ -17,11 +17,15 @@ namespace tl2_proyecto_TomasDLV.Controllers
     {
         private readonly ILogger<UsuarioController> _logger;
         private IUsuarioRepository _usuario;
+        private ITareaRepository _tarea;
+        private ITableroRepository _tablero;
 
-        public UsuarioController(ILogger<UsuarioController> logger,IUsuarioRepository usuarioRepository)
+        public UsuarioController(ILogger<UsuarioController> logger,IUsuarioRepository usuarioRepository,ITareaRepository tareaRepository,ITableroRepository tableroRepository)
         {
             _logger = logger;
             _usuario = usuarioRepository;
+            _tarea = tareaRepository;
+            _tablero = tableroRepository;
         }
 
         public IActionResult Index()
@@ -129,7 +133,22 @@ namespace tl2_proyecto_TomasDLV.Controllers
                 if(!(id>0)) return RedirectToAction("Index");
                 if (esAdmin() || (int)HttpContext.Session.GetInt32("id") == id)
                 {
+                    var tasks = _tarea.GetAllTaskByIdUser(id);
+                    foreach (var t in tasks)
+                    {
+                        
+                        t.Id_usuario_asignado = -1;
+                        _tarea.UpdateTask(t.Id,t);
+                    }
+                    var boards = _tablero.GetAllBoardsByIdUser(id);
+                    foreach (var b in boards)
+                    {
+                        b.IdUsuarioPropietario = -1;
+                        _tablero.UpdateBoard(b.Id,b);
+                    }
                     _usuario.RemoveUser(id);
+                    
+                    
                     if (id == (int)HttpContext.Session.GetInt32("id"))
                     {
                         return RedirectToRoute(new { controller = "Login", action = "Index" });

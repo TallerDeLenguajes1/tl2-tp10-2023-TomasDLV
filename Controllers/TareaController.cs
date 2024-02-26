@@ -26,10 +26,11 @@ namespace tl2_proyecto_TomasDLV.Controllers
             try
             {
                 if (!logueado()) return RedirectToRoute(new { controller = "Login", action = "Index" });
-                var tasks = _tareaRepository.GetAllTaskByIdBoard(idBoard);
+                
                 var board = _tableroRepository.GetByIdBoard(idBoard);
                 var users = _usuarioRepository.GetAllUser();
                 int idUser = (int)HttpContext.Session.GetInt32("id");
+                var tasks = _tareaRepository.GetAllTaskByIdBoard(idBoard);
                 return View(new ListarTareasViewModel(tasks,users,board,idUser));
             }
             catch (System.Exception ex)
@@ -132,7 +133,7 @@ namespace tl2_proyecto_TomasDLV.Controllers
                 
                 
 
-                if (esAdmin() || tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"))
+                if (esAdmin())
                 {
                     _tareaRepository.RemoveTask(id);
 
@@ -140,6 +141,13 @@ namespace tl2_proyecto_TomasDLV.Controllers
                 }
                 else
                 {
+                    if (tablero.IdUsuarioPropietario == (int)HttpContext.Session.GetInt32("id"))
+                    {
+                        var tarea = _tareaRepository.GetTaskById(id);
+                        tarea.Id_usuario_asignado = -1;
+                        _tareaRepository.UpdateTask(id,tarea);
+                        return RedirectToAction("Index", "Tarea", new { idBoard = IdTab });
+                    }
                     return RedirectToRoute(new { controller = "Login", action = "Index" });
                 }
             }

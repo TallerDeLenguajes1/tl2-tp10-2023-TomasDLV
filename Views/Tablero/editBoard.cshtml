@@ -1,8 +1,43 @@
 @model tl2_proyecto_TomasDLV.ViewModels.ModificarTableroViewModel
-
+@{
+    var userCheck = Context.Items["UserCheck"] as UserCheck;
+}
+@using tl2_proyecto_TomasDLV.Repositorios;
 <form asp-controller="Tablero" asp-action="editBoard" method="post">
     <input type="hidden" asp-for="@Model.Id" />
-    <input type="hidden" asp-for="@Model.IdUsuarioPropietario" />
+
+    @if (userCheck.IsAdmin())
+    {
+        <div class="mb-3">
+            <div class="form-group">
+                <label class="form-label" asp-for="@Model.IdUsuarioPropietario">Propietario de Tablero: </label>
+                <select asp-for="@Model.IdUsuarioPropietario" class="form-control" id="idUsuarioAsignado">
+                    @if(Model.IdUsuarioPropietario == -1){
+                        <option value="-1" selected>Sin Propietario</option>
+                    }else{
+                        <option value="">Sin Propietario</option>
+                    }
+                    
+            @foreach (var user in Model.Usuarios)
+            {
+                if (user.Id == Model.IdUsuarioPropietario)
+                {
+                    <option value="@user.Id" selected>@user.Nombre_de_usuario</option>
+                }
+                else
+                {
+                    <option value="@user.Id">@user.Nombre_de_usuario</option>
+                }
+            }
+                </select>
+                <span asp-validation-for="@Model.IdUsuarioPropietario" class="text-danger"></span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <input type="hidden" asp-for="@Model.IdUsuarioPropietario" />
+    }
     <div class="mb-3">
         <label class="form-label" asp-for="@Model.Nombre">Nombre de Tablero: </label>
         <input asp-for="@Model.Nombre" class="form-control" />
@@ -16,13 +51,13 @@
 
 
     <button class="btn btn-primary" type="submit">Guardar Cambios</button>
-    
+
 </form>
 <form asp-controller="Tablero" asp-action="removeBoard" method="post"
-        onsubmit="return confirm('¿Estás seguro que quieres eliminar el tablero?')">
-        <input type="hidden" name="id" value="@Model.Id" />
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-    </form>
+    onsubmit="return confirm('¿Estás seguro que quieres eliminar el tablero?')">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+</form>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

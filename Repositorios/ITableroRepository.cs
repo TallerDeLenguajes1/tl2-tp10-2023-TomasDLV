@@ -18,5 +18,6 @@ namespace tl2_proyecto_TomasDLV.Repositorios
         public Tablero GetByIdBoard(int idTablero);
         public List<Tablero> GetAllBoardsHaveTask(int idUser);
         public void RemoveBoard(int id);
+        
     }
 }

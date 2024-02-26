@@ -22,7 +22,7 @@ namespace tl2_proyecto_TomasDLV.ViewModels
         public string Descripcion { get; set; }
 
         public CrearTableroViewModel(Tablero tablero){
-            this.IdUsuarioPropietario = tablero.IdUsuarioPropietario;
+            this.IdUsuarioPropietario = (int)tablero.IdUsuarioPropietario;
             this.Nombre = tablero.Nombre;
             this.Descripcion = tablero.Descripcion;
         }
